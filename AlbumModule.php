@@ -35,7 +35,7 @@ class AlbumModule extends HWebModule
                 DIRECTORY_SEPARATOR . "uploads" .
                 DIRECTORY_SEPARATOR . 'album';
         if (!is_dir($path)) {
-            mkdir($path,077,true);
+            mkdir($path,0777,true);
         }
         
     }
