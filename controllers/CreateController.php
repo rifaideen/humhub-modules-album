@@ -52,6 +52,10 @@ class CreateController extends Controller
 
 		if(isset($_POST['Album']))
 		{
+                        $_POST = Yii::app()->input->stripClean($_POST);
+                        $_POST['containerGuid'] = Yii::app()->user->guid;
+                        $_POST['containerClass'] = 'User';
+                        $model->content->populateByForm();
 			$model->attributes=$_POST['Album'];
 			if ($model->save()) {
                                 PublicFile::attachPrecreated($model, Yii::app()->request->getParam('cover'));

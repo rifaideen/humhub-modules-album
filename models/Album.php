@@ -15,7 +15,7 @@
  * The followings are the available model relations:
  * @property AlbumImage[] $images
  */
-class Album extends HActiveRecord
+class Album extends HActiveRecordContent
 {
 	
         /**
@@ -124,6 +124,24 @@ class Album extends HActiveRecord
 	}
         
         /**
+         * After Saving album fire the album created activity
+         */
+        public function afterSave()
+        {
+            parent::afterSave();
+            
+            if ($this->isNewRecord) {
+                $activity = Activity::CreateForContent($this);
+                $activity->type = "AlbumCreated";
+                $activity->module = "album";
+                $activity->save();
+                $activity->fire();
+            }
+            
+            return true;
+        }
+        
+        /**
          * Cleanup AlbumImage
          */
         public function afterDelete() 
@@ -135,5 +153,25 @@ class Album extends HActiveRecord
             foreach ($this->getImages() as $image) {
                 $image->delete();
             }
+        }
+        
+        /**
+         * Returns the Wall Output
+         */
+        public function getWallOut()
+        {
+            return Yii::app()->getController()->widget('application.modules.album.widgets.AlbumWidget', array('album' => $this), true);
+        }
+        
+        /**
+         * Returns a title/text which identifies this IContent.
+         *
+         * e.g. Task: foo bar 123...
+         *
+         * @return String
+         */
+        public function getContentTitle()
+        {
+            return "\"" . Helpers::truncateText($this->name, 25) . "\"";
         }
 }
