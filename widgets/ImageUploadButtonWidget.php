@@ -35,12 +35,12 @@ class ImageUploadButtonWidget extends FileUploadButtonWidget
             $objectId = $this->object->getPrimaryKey();
         }
 
-        $this->render('fileUploadButton', array(
+        $this->render('fileUploadButton', [
             'fileListFieldName' => $this->fileListFieldName,
             'uploaderId' => $this->uploaderId,
             'objectModel' => $objectModel,
             'objectId' => $objectId,
             'uploadTo' => $this->uploadTo
-        ));
+        ]);
     }
 }

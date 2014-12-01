@@ -17,9 +17,9 @@ class CreateController extends Controller
 	 */
 	public function filters()
 	{
-		return array(
-			'accessControl', // perform access control for CRUD operations
-		);
+		return [
+                    'accessControl', // perform access control for CRUD operations
+		];
 	}
 
 	/**
@@ -29,14 +29,16 @@ class CreateController extends Controller
 	 */
 	public function accessRules()
 	{
-		return array(
-			array('allow',
-				'users'=>array('@'),
-			),
-			array('deny',  // deny all users
-				'users'=>array('*'),
-			),
-		);
+		return [
+                    [
+                        'allow',
+                        'users'=>['@'],
+                    ],
+                    [
+                        'deny',  // deny all users
+                        'users'=>['*'],
+                    ],
+		];
 	}
         
         /**
@@ -59,12 +61,12 @@ class CreateController extends Controller
 			$model->attributes=$_POST['Album'];
 			if ($model->save()) {
                                 PublicFile::attachPrecreated($model, Yii::app()->request->getParam('cover'));
-				$this->redirect(array('/album/view','id'=>$model->id));
+				$this->redirect(['/album/view','id'=>$model->id]);
                         }
 		}
 
-		$this->render('/album/create',array(
-			'model'=>$model,
-		));
+		$this->render('/album/create',[
+                    'model'=>$model,
+		]);
 	}
 }

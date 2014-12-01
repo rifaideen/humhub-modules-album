@@ -6,17 +6,17 @@
 
 <div class="form">
 
-<?php $form=$this->beginWidget('HActiveForm', array(
+<?php $form=$this->beginWidget('HActiveForm', [
 	'id'=>'album-image-form',
 	// Please note: When you enable ajax validation, make sure the corresponding
 	// controller action is handling ajax validation correctly.
 	// There is a call to performAjaxValidation() commented in generated controller code.
 	// See class documentation of CActiveForm for details on this.
 	'enableAjaxValidation'=>false,
-        'htmlOptions'=>array(
+        'htmlOptions'=>[
             'enctype'=>'multipart/form-data'
-        )
-)); ?>
+        ]
+]); ?>
 
 	<p class="note">Fields with <span class="required">*</span> are required.</p>
 
@@ -43,13 +43,13 @@
 
 	<div class="row">
 		<?php echo $form->labelEx($model,'name'); ?>
-		<?php echo $form->textField($model,'name',array('class'=>'form-control','maxlength'=>100)); ?>
+		<?php echo $form->textField($model,'name',['class'=>'form-control','maxlength'=>100]); ?>
 		<?php echo $form->error($model,'name'); ?>
 	</div>
 
 	<div class="row">
 		<?php echo $form->labelEx($model,'description'); ?>
-		<?php echo $form->textField($model,'description',array('class'=>'form-control','maxlength'=>255)); ?>
+		<?php echo $form->textField($model,'description',['class'=>'form-control','maxlength'=>255]); ?>
 		<?php echo $form->error($model,'description'); ?>
 	</div>
 

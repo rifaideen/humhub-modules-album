@@ -15,13 +15,13 @@ class AlbumModule extends HWebModule
      */
     public static function onTopMenuInit($event)
     {
-        $event->sender->addItem(array(
+        $event->sender->addItem([
             'label' => 'Album',
             'url' => Yii::app()->createUrl('//album'),
             'icon' => '<i class="fa fa-image"></i>',
             'isActive' => (Yii::app()->controller->module && Yii::app()->controller->module->id == 'album'),
             'sortOrder' => 800,
-        ));
+        ]);
     }
     
     /**

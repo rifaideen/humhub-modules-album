@@ -5,12 +5,12 @@
                 <div class="panel-heading">Albums Menu</div>
                 <div class="panel-body">
                     <?php
-                    $this->widget('zii.widgets.CMenu',array(
+                    $this->widget('zii.widgets.CMenu',[
                         'items'=>$this->menu,
-                        'htmlOptions'=>array(
+                        'htmlOptions'=>[
                             'class'=>'nav nav-pills nav-stacked'
-                        )
-                    ));
+                        ]
+                    ]);
                     ?>
                 </div>
             </div>

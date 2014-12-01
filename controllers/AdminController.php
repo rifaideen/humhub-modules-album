@@ -18,9 +18,9 @@ class AdminController extends Controller
 	 */
 	public function filters()
 	{
-		return array(
-			'accessControl', // perform access control for CRUD operations
-		);
+            return [
+                'accessControl', // perform access control for CRUD operations
+            ];
 	}
 
 	/**
@@ -30,14 +30,16 @@ class AdminController extends Controller
 	 */
 	public function accessRules()
 	{
-		return array(
-			array('allow',
-				'users'=>array('@'),
-			),
-			array('deny',  // deny all users
-				'users'=>array('*'),
-			),
-		);
+            return [
+                [
+                    'allow',
+                    'users'=>['@'],
+                ],
+                [
+                    'deny',  // deny all users
+                    'users'=>['*'],
+                ],
+            ];
 	}
 
 	/**
@@ -45,14 +47,15 @@ class AdminController extends Controller
 	 */
 	public function actionAdmin()
 	{
-                $this->subLayout = "application.modules.album.views._layout";
-		$model=new Album('search');
-		$model->unsetAttributes();  // clear any default values
-		if(isset($_GET['Album']))
-			$model->attributes=$_GET['Album'];
+            $this->subLayout = "application.modules.album.views._layout";
+            $model=new Album('search');
+            $model->unsetAttributes();  // clear any default values
+            if(isset($_GET['Album'])) {
+                $model->attributes=$_GET['Album'];
+            }
 
-		$this->render('/album/admin',array(
-			'model'=>$model,
-		));
+            $this->render('/album/admin',[
+                    'model'=>$model,
+            ]);
 	}
 }

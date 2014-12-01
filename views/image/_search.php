@@ -6,10 +6,10 @@
 
 <div class="wide form">
 
-<?php $form=$this->beginWidget('CActiveForm', array(
+<?php $form=$this->beginWidget('CActiveForm', [
 	'action'=>Yii::app()->createUrl($this->route),
 	'method'=>'get',
-)); ?>
+]); ?>
 
 	<div class="row">
 		<?php echo $form->label($model,'id'); ?>
@@ -23,17 +23,17 @@
 
 	<div class="row">
 		<?php echo $form->label($model,'image'); ?>
-		<?php echo $form->textField($model,'image',array('size'=>60,'maxlength'=>255)); ?>
+		<?php echo $form->textField($model,'image',['size'=>60,'maxlength'=>255]); ?>
 	</div>
 
 	<div class="row">
 		<?php echo $form->label($model,'name'); ?>
-		<?php echo $form->textField($model,'name',array('size'=>60,'maxlength'=>100)); ?>
+		<?php echo $form->textField($model,'name',['size'=>60,'maxlength'=>100]); ?>
 	</div>
 
 	<div class="row">
 		<?php echo $form->label($model,'description'); ?>
-		<?php echo $form->textField($model,'description',array('size'=>60,'maxlength'=>255)); ?>
+		<?php echo $form->textField($model,'description',['size'=>60,'maxlength'=>255]); ?>
 	</div>
 
 	<div class="row">

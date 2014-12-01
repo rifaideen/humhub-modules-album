@@ -16,10 +16,10 @@ class ImageController extends Controller
 	 */
 	public function filters()
 	{
-		return array(
-			'accessControl', // perform access control for CRUD operations
-			'postOnly + delete', // we only allow deletion via POST request
-		);
+            return [
+                'accessControl', // perform access control for CRUD operations
+                'postOnly + delete', // we only allow deletion via POST request
+            ];
 	}
 
 	/**
@@ -29,14 +29,16 @@ class ImageController extends Controller
 	 */
 	public function accessRules()
 	{
-		return array(
-			array('allow',
-				'users'=>array('@'),
-			),
-			array('deny',  // deny all users
-				'users'=>array('*'),
-			),
-		);
+            return [
+                [
+                    'allow',
+                    'users'=>['@'],
+                ],
+                [
+                    'deny',  // deny all users
+                    'users'=>['*'],
+                ],
+            ];
 	}
 
 	/**
@@ -45,31 +47,31 @@ class ImageController extends Controller
 	 */
 	public function actionCreate($id)
 	{
-		$album = Album::model()->findByPk($id);
-                
-                if ($album === null) {
-                    throw new CHttpException(404,'The requested album does not exists.');
-                }
-                
-                $model=new AlbumImage;
+            $album = Album::model()->findByPk($id);
 
-		// Uncomment the following line if AJAX validation is needed
-		// $this->performAjaxValidation($model);
+            if ($album === null) {
+                throw new CHttpException(404,'The requested album does not exists.');
+            }
 
-		if(isset($_POST['AlbumImage']))
-		{
-			$model->attributes=$_POST['AlbumImage'];
-                        $model->album_id = $album->id;
-			if($model->save()) {
-                                PublicFile::attachPrecreated($model, $model->_image);
-				$this->redirect(array('/album/details','id'=>$album->id));
-                        }
-		}
+            $model=new AlbumImage;
 
-		$this->render('create',array(
-			'model'=>$model,
-                        'album'=>$album
-		));
+            // Uncomment the following line if AJAX validation is needed
+            // $this->performAjaxValidation($model);
+
+            if(isset($_POST['AlbumImage']))
+            {
+                    $model->attributes=$_POST['AlbumImage'];
+                    $model->album_id = $album->id;
+                    if($model->save()) {
+                        PublicFile::attachPrecreated($model, $model->_image);
+                        $this->redirect(['/album/details','id'=>$album->id]);
+                    }
+            }
+
+            $this->render('create',[
+                'model'=>$model,
+                'album'=>$album
+            ]);
 	}
 
 	/**
@@ -79,22 +81,23 @@ class ImageController extends Controller
 	 */
 	public function actionUpdate($id)
 	{
-		$model=$this->loadModel($id);
+            $model=$this->loadModel($id);
 
-		// Uncomment the following line if AJAX validation is needed
-		// $this->performAjaxValidation($model);
+            // Uncomment the following line if AJAX validation is needed
+            // $this->performAjaxValidation($model);
 
-		if(isset($_POST['AlbumImage']))
-		{
-			$model->attributes=$_POST['AlbumImage'];
-			if($model->save())
-				$this->redirect(array('/album/details','id'=>$model->album->id));
-		}
+            if(isset($_POST['AlbumImage']))
+            {
+                    $model->attributes=$_POST['AlbumImage'];
+                    if ($model->save()) {
+                        $this->redirect(['/album/details','id'=>$model->album->id]);
+                    }
+            }
 
-		$this->render('update',array(
-			'model'=>$model,
-                        'album'=>$model->album
-		));
+            $this->render('update',[
+                'model'=>$model,
+                'album'=>$model->album
+            ]);
 	}
 
 	/**
@@ -104,11 +107,12 @@ class ImageController extends Controller
 	 */
 	public function actionDelete($id)
 	{
-		$this->loadModel($id)->delete();
+            $this->loadModel($id)->delete();
 
-		// if AJAX request (triggered by deletion via admin grid view), we should not redirect the browser
-		if(!isset($_GET['ajax']))
-			$this->redirect(isset($_POST['returnUrl']) ? $_POST['returnUrl'] : array('admin'));
+            // if AJAX request (triggered by deletion via admin grid view), we should not redirect the browser
+            if (!isset($_GET['ajax'])) {
+                $this->redirect(isset($_POST['returnUrl']) ? $_POST['returnUrl'] : ['admin']);
+            }
 	}
 
         /**
@@ -130,11 +134,11 @@ class ImageController extends Controller
                 }
             }
 
-            $files = array();
+            $files = [];
             $cFile = CUploadedFile::getInstanceByName('files');
             $files[0] = $this->handleFileUpload($cFile, $object);
 
-            return $this->renderJson(array('files' => $files));
+            return $this->renderJson(['files' => $files]);
         }
 
         /**
@@ -162,7 +166,7 @@ class ImageController extends Controller
          */
         protected function handleFileUpload($cFile, $object = null)
         {
-            $output = array();
+            $output = [];
 
             $file = new PublicFile();
             $file->setUploadedFile($cFile);
@@ -203,10 +207,11 @@ class ImageController extends Controller
 	 */
 	public function loadModel($id)
 	{
-		$model=AlbumImage::model()->with('image')->findByPk($id);
-		if($model===null)
-			throw new CHttpException(404,'The requested page does not exist.');
-		return $model;
+            $model=AlbumImage::model()->with('image')->findByPk($id);
+            if ($model===null) {
+                    throw new CHttpException(404,'The requested page does not exist.');
+            }
+            return $model;
 	}
 
 	/**
@@ -215,10 +220,10 @@ class ImageController extends Controller
 	 */
 	protected function performAjaxValidation($model)
 	{
-		if(isset($_POST['ajax']) && $_POST['ajax']==='album-image-form')
-		{
-			echo CActiveForm::validate($model);
-			Yii::app()->end();
-		}
+            if(isset($_POST['ajax']) && $_POST['ajax']==='album-image-form')
+            {
+                echo CActiveForm::validate($model);
+                Yii::app()->end();
+            }
 	}
 }

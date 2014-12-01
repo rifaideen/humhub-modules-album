@@ -33,17 +33,17 @@ class AlbumImage extends HActiveRecord
 	{
 		// NOTE: you should only define rules for those attributes that
 		// will receive user inputs.
-		return array(
-			array('album_id, name, description', 'required'),
-                        array('_image', 'required','on'=>'insert','message'=>'Image cannot be blank.'),
-			array('album_id', 'numerical', 'integerOnly'=>true),
-			array('description', 'length', 'max'=>255),
-			array('name', 'length', 'max'=>100),
-			array('created_at, updated_at', 'safe'),
-			// The following rule is used by search().
-			// @todo Please remove those attributes that should not be searched.
-			array('id, album_id, name, description, created_at, updated_at', 'safe', 'on'=>'search'),
-		);
+		return [
+                    ['album_id, name, description', 'required'],
+                    ['_image', 'required','on'=>'insert','message'=>'Image cannot be blank.'],
+                    ['album_id', 'numerical', 'integerOnly'=>true],
+                    ['description', 'length', 'max'=>255],
+                    ['name', 'length', 'max'=>100],
+                    ['created_at, updated_at', 'safe'],
+                    // The following rule is used by search().
+                    // @todo Please remove those attributes that should not be searched.
+                    ['id, album_id, name, description, created_at, updated_at', 'safe', 'on'=>'search'],
+		];
 	}
 
 	/**
@@ -53,10 +53,10 @@ class AlbumImage extends HActiveRecord
 	{
 		// NOTE: you may need to adjust the relation name and the related
 		// class name for the relations automatically generated below.
-		return array(
-			'album' => array(self::BELONGS_TO, 'Album', 'album_id'),
-                        'image' => array(self::HAS_ONE,'PublicFile','object_id','condition'=>"image.object_model ='AlbumImage'",'select'=>'image.id,image.guid,image.file_name')
-		);
+		return [
+                    'album' => [self::BELONGS_TO, 'Album', 'album_id'],
+                    'image' => [self::HAS_ONE,'PublicFile','object_id','condition'=>"image.object_model ='AlbumImage'",'select'=>'image.id,image.guid,image.file_name']
+		];
 	}
 
 	/**
@@ -64,14 +64,14 @@ class AlbumImage extends HActiveRecord
 	 */
 	public function attributeLabels()
 	{
-		return array(
-			'id' => 'ID',
-			'album_id' => 'Album',
-			'name' => 'Name',
-			'description' => 'Description',
-			'created_at' => 'Created At',
-			'updated_at' => 'Updated At',
-		);
+		return [
+                    'id' => 'ID',
+                    'album_id' => 'Album',
+                    'name' => 'Name',
+                    'description' => 'Description',
+                    'created_at' => 'Created At',
+                    'updated_at' => 'Updated At',
+		];
 	}
 
 	/**
@@ -100,9 +100,9 @@ class AlbumImage extends HActiveRecord
 		$criteria->compare('created_at',$this->created_at,true);
 		$criteria->compare('updated_at',$this->updated_at,true);
 
-		return new CActiveDataProvider($this, array(
-			'criteria'=>$criteria,
-		));
+		return new CActiveDataProvider($this, [
+                    'criteria'=>$criteria,
+		]);
 	}
 
 	/**

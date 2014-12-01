@@ -15,9 +15,9 @@ class IndexController extends Controller
 	 */
 	public function filters()
 	{
-		return array(
-			'accessControl', // perform access control for CRUD operations
-		);
+		return [
+                    'accessControl', // perform access control for CRUD operations
+		];
 	}
 
 	/**
@@ -27,14 +27,16 @@ class IndexController extends Controller
 	 */
 	public function accessRules()
 	{
-		return array(
-			array('allow',
-				'users'=>array('@'),
-			),
-			array('deny',  // deny all users
-				'users'=>array('*'),
-			),
-		);
+		return [
+                    [
+                        'allow',
+                        'users'=>['@'],
+                    ],
+                    [
+                        'deny',  // deny all users
+                        'users'=>['*'],
+                    ],
+		];
 	}
         
         /**
@@ -44,8 +46,8 @@ class IndexController extends Controller
 	{
                 //$this->subLayout = null;
 		$dataProvider=new CActiveDataProvider('Album');
-		$this->render('/album/index',array(
-			'dataProvider'=>$dataProvider,
-		));
+		$this->render('/album/index',[
+                    'dataProvider'=>$dataProvider,
+		]);
 	}
 }

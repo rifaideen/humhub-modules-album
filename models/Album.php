@@ -33,14 +33,14 @@ class Album extends HActiveRecordContent
 	{
 		// NOTE: you should only define rules for those attributes that
 		// will receive user inputs.
-		return array(
-			array('name', 'required'),
-			array('name', 'length', 'max'=>255),
-                        array('description', 'safe'),
+		return [
+			['name', 'required'],
+			['name', 'length', 'max'=>255],
+                        ['description', 'safe'],
 			// The following rule is used by search().
 			// @todo Please remove those attributes that should not be searched.
-			array('id, name, description, created_at, updated_at, created_by, updated_by', 'safe', 'on'=>'search'),
-		);
+			['id, name, description, created_at, updated_at, created_by, updated_by', 'safe', 'on'=>'search'],
+		];
 	}
 
 	/**
@@ -50,10 +50,10 @@ class Album extends HActiveRecordContent
 	{
 		// NOTE: you may need to adjust the relation name and the related
 		// class name for the relations automatically generated below.
-		return array(
+		return [
 			//'images' => array(self::HAS_MANY, 'AlbumImage', 'album_id'),
-                        'cover' => array(self::HAS_ONE,'PublicFile','object_id','condition'=>"cover.object_model ='Album'",'select'=>'cover.id,cover.guid,cover.file_name')
-		);
+                        'cover' => [self::HAS_ONE,'PublicFile','object_id','condition'=>"cover.object_model ='Album'",'select'=>'cover.id,cover.guid,cover.file_name']
+		];
 	}
         
         /**
@@ -70,7 +70,7 @@ class Album extends HActiveRecordContent
 	 */
 	public function attributeLabels()
 	{
-		return array(
+		return [
 			'id' => 'ID',
 			'name' => 'Name',
 			'description' => 'Description',
@@ -78,7 +78,7 @@ class Album extends HActiveRecordContent
 			'updated_at' => 'Updated At',
 			'created_by' => 'Created By',
 			'updated_by' => 'Updated By',
-		);
+		];
 	}
 
 	/**
@@ -107,9 +107,9 @@ class Album extends HActiveRecordContent
 		$criteria->compare('created_by',$this->created_by);
 		$criteria->compare('updated_by',$this->updated_by);
 
-		return new CActiveDataProvider($this, array(
+		return new CActiveDataProvider($this, [
 			'criteria'=>$criteria,
-		));
+		]);
 	}
 
 	/**
@@ -160,7 +160,7 @@ class Album extends HActiveRecordContent
          */
         public function getWallOut()
         {
-            return Yii::app()->getController()->widget('application.modules.album.widgets.AlbumWidget', array('album' => $this), true);
+            return Yii::app()->getController()->widget('application.modules.album.widgets.AlbumWidget', ['album' => $this], true);
         }
         
         /**

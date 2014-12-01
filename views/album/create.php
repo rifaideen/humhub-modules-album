@@ -21,4 +21,4 @@ $this->menu = [
 
 <h1>Create Album</h1>
 
-<?php $this->renderPartial('/album/_form', array('model'=>$model)); ?>
+<?php $this->renderPartial('/album/_form', ['model'=>$model]); ?>

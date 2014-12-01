@@ -17,9 +17,9 @@ class UpdateController extends Controller
 	 */
 	public function filters()
 	{
-		return array(
-			'accessControl', // perform access control for CRUD operations
-		);
+            return [
+                'accessControl', // perform access control for CRUD operations
+            ];
 	}
 
 	/**
@@ -29,14 +29,16 @@ class UpdateController extends Controller
 	 */
 	public function accessRules()
 	{
-		return array(
-			array('allow',
-				'users'=>array('@'),
-			),
-			array('deny',  // deny all users
-				'users'=>array('*'),
-			),
-		);
+            return [
+                [
+                    'allow',
+                    'users'=>['@'],
+                ],
+                [
+                    'deny',  // deny all users
+                    'users'=>['*'],
+                ],
+            ];
 	}
         
         /**
@@ -46,21 +48,21 @@ class UpdateController extends Controller
 	 */
 	public function actionUpdate($id)
 	{
-		$model=$this->loadModel($id);
+            $model=$this->loadModel($id);
 
-		// Uncomment the following line if AJAX validation is needed
-		// $this->performAjaxValidation($model);
+            // Uncomment the following line if AJAX validation is needed
+            // $this->performAjaxValidation($model);
 
-		if(isset($_POST['Album']))
-		{
-			$model->attributes=$_POST['Album'];
-			if($model->save())
-				$this->redirect(array('/album/view','id'=>$model->id));
-		}
+            if(isset($_POST['Album']))
+            {
+                    $model->attributes=$_POST['Album'];
+                    if($model->save())
+                            $this->redirect(['/album/view','id'=>$model->id]);
+            }
 
-		$this->render('/album/update',array(
-			'model'=>$model,
-		));
+            $this->render('/album/update',[
+                    'model'=>$model,
+            ]);
 	}
         
         /**
@@ -72,9 +74,10 @@ class UpdateController extends Controller
 	 */
 	public function loadModel($id)
 	{
-		$model=Album::model()->findByPk($id);
-		if($model===null)
-			throw new CHttpException(404,'The requested page does not exist.');
-		return $model;
+            $model=Album::model()->findByPk($id);
+            if ($model===null) {
+                    throw new CHttpException(404,'The requested page does not exist.');
+            }
+            return $model;
 	}
 }

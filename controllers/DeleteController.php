@@ -17,10 +17,10 @@ class DeleteController extends Controller
 	 */
 	public function filters()
 	{
-		return array(
-			'accessControl', // perform access control for CRUD operations
-                        'postOnly + delete'
-		);
+            return [
+                'accessControl', // perform access control for CRUD operations
+                'postOnly + delete'
+            ];
 	}
 
 	/**
@@ -30,14 +30,16 @@ class DeleteController extends Controller
 	 */
 	public function accessRules()
 	{
-		return array(
-			array('allow',
-				'users'=>array('@'),
-			),
-			array('deny',  // deny all users
-				'users'=>array('*'),
-			),
-		);
+            return [
+                [
+                    'allow',
+                    'users'=>['@'],
+                ],
+                [
+                    'deny',  // deny all users
+                    'users'=>['*'],
+                ],
+            ];
 	}
         
         /**
@@ -47,11 +49,12 @@ class DeleteController extends Controller
 	 */
 	public function actionDelete($id)
 	{
-		$this->loadModel($id)->delete();
+            $this->loadModel($id)->delete();
 
-		// if AJAX request (triggered by deletion via admin grid view), we should not redirect the browser
-		if(!isset($_GET['ajax']))
-			$this->redirect(isset($_POST['returnUrl']) ? $_POST['returnUrl'] : array('admin'));
+            // if AJAX request (triggered by deletion via admin grid view), we should not redirect the browser
+            if (!isset($_GET['ajax'])) {
+                $this->redirect(isset($_POST['returnUrl']) ? $_POST['returnUrl'] : ['admin']);
+            }
 	}
         
         /**
@@ -63,9 +66,9 @@ class DeleteController extends Controller
 	 */
 	public function loadModel($id)
 	{
-		$model=Album::model()->findByPk($id);
-		if($model===null)
-			throw new CHttpException(404,'The requested page does not exist.');
-		return $model;
+            $model=Album::model()->findByPk($id);
+            if($model===null)
+                    throw new CHttpException(404,'The requested page does not exist.');
+            return $model;
 	}
 }

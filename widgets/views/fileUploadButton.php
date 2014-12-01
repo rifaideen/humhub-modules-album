@@ -17,7 +17,7 @@
  */
 ?>
 
-<?php echo CHtml::hiddenField($this->fileListFieldName, '', array('id' => "fileUploaderHiddenField_" . $uploaderId)); ?>
+<?php echo CHtml::hiddenField($this->fileListFieldName, '', ['id' => "fileUploaderHiddenField_" . $uploaderId]); ?>
 
 <style>
     .fileinput-button {
@@ -43,7 +43,7 @@
     <i class="fa fa-cloud-upload"></i>
 
     <input id="fileUploaderButton_<?php echo $uploaderId; ?>" type="file" name="files"
-           data-url="<?php echo Yii::app()->createUrl($uploadTo, array('objectModel' => $objectModel, 'objectId' => $objectId)); ?>">
+           data-url="<?php echo Yii::app()->createUrl($uploadTo, ['objectModel' => $objectModel, 'objectId' => $objectId]); ?>">
 </span>
 
 <script>

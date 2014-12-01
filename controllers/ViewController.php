@@ -17,10 +17,10 @@ class ViewController extends Controller
 	 */
 	public function filters()
 	{
-		return array(
-			'accessControl', // perform access control for CRUD operations
-			'postOnly + delete', // we only allow deletion via POST request
-		);
+            return [
+                'accessControl', // perform access control for CRUD operations
+                'postOnly + delete', // we only allow deletion via POST request
+            ];
 	}
 
 	/**
@@ -30,14 +30,16 @@ class ViewController extends Controller
 	 */
 	public function accessRules()
 	{
-		return array(
-			array('allow',
-				'users'=>array('@'),
-			),
-			array('deny',  // deny all users
-				'users'=>array('*'),
-			),
-		);
+            return [
+                [
+                    'allow',
+                    'users'=>['@'],
+                ],
+                [
+                    'deny',  // deny all users
+                    'users'=>['*'],
+                ],
+            ];
 	}
         
         /**
@@ -46,10 +48,9 @@ class ViewController extends Controller
 	 */
 	public function actionView($id)
 	{
-            //$this->subLayout = false;
-		$this->render('/album/view',array(
-			'model'=>$this->loadModel($id),
-		));
+            $this->render('/album/view',[
+                'model'=>$this->loadModel($id),
+            ]);
 	}
 
         /**
@@ -61,9 +62,10 @@ class ViewController extends Controller
 	 */
 	public function loadModel($id)
 	{
-		$model=Album::model()->findByPk($id);
-		if($model===null)
-			throw new CHttpException(404,'The requested page does not exist.');
-		return $model;
+            $model=Album::model()->findByPk($id);
+            if ($model===null) {
+                    throw new CHttpException(404,'The requested page does not exist.');
+            }
+            return $model;
 	}
 }

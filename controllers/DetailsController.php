@@ -15,10 +15,10 @@ class DetailsController extends Controller
 	 */
 	public function filters()
 	{
-		return array(
-			'accessControl', // perform access control for CRUD operations
-			'postOnly + delete', // we only allow deletion via POST request
-		);
+            return [
+                'accessControl', // perform access control for CRUD operations
+                'postOnly + delete', // we only allow deletion via POST request
+            ];
 	}
 
 	/**
@@ -28,14 +28,16 @@ class DetailsController extends Controller
 	 */
 	public function accessRules()
 	{
-		return array(
-			array('allow',
-				'users'=>array('@'),
-			),
-			array('deny',  // deny all users
-				'users'=>array('*'),
-			),
-		);
+            return [
+                [
+                    'allow',
+                    'users'=>['@'],
+                ],
+                [
+                    'deny',  // deny all users
+                    'users'=>['*'],
+                ],
+            ];
 	}
 
         public function actionIndex($id)

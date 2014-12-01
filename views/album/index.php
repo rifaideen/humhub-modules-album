@@ -21,7 +21,7 @@ $this->menu = [
 
 <h1>Albums</h1>
 
-<?php $this->widget('zii.widgets.CListView', array(
+<?php $this->widget('zii.widgets.CListView', [
 	'dataProvider'=>$dataProvider,
 	'itemView'=>'/album/_view',
-)); ?>
+]); ?>
