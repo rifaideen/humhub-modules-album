@@ -30,7 +30,7 @@ class PublicFile extends File
                 DIRECTORY_SEPARATOR . "uploads" .
                 DIRECTORY_SEPARATOR . $this->folder_uploads;
         if (!is_dir($path)) {
-            mkdir($path,077,true);
+            mkdir($path,0777,true);
         }
         
         return parent::beforeSave();

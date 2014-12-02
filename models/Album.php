@@ -153,6 +153,8 @@ class Album extends HActiveRecordContent
             foreach ($this->getImages() as $image) {
                 $image->delete();
             }
+            
+            parent::afterDelete();
         }
         
         /**
