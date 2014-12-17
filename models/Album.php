@@ -144,17 +144,17 @@ class Album extends HActiveRecordContent
         /**
          * Cleanup AlbumImage
          */
-        public function afterDelete() 
+        public function beforeDelete() 
         {
             $cover = $this->cover;
-            if ($cover instanceof PublicFile) {
+            if ($cover != null) {
                 $cover->delete();
             }
             foreach ($this->getImages() as $image) {
                 $image->delete();
             }
             
-            parent::afterDelete();
+            return parent::beforeDelete();
         }
         
         /**

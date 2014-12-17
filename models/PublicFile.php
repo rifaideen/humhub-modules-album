@@ -11,13 +11,21 @@ class PublicFile extends File
      * Name of the folder where public files are stored
      */
     protected $folder_uploads = "album";
+
+    /**
+     * Web Accesible url of the file.
+     */
+    protected $_url;
     
     /**
      * Get Uploaded File Url
      */
     public function getUrl($suffix = "")
     {
-        return Yii::app()->baseUrl.'/uploads/'.$this->folder_uploads.'/'.$this->guid.'/'.$this->file_name;
+		if ($this->_url == null) {
+			$this->_url = Yii::app()->baseUrl.'/uploads/'.$this->folder_uploads.'/'.$this->guid.'/'.$this->file_name;
+		}
+        return $this->_url;
     }
     
     /**
