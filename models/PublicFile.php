@@ -22,9 +22,9 @@ class PublicFile extends File
      */
     public function getUrl($suffix = "")
     {
-		if ($this->_url == null) {
-			$this->_url = Yii::app()->baseUrl.'/uploads/'.$this->folder_uploads.'/'.$this->guid.'/'.$this->file_name;
-		}
+        if ($this->_url == null) {
+                $this->_url = Yii::app()->baseUrl.'/uploads/'.$this->folder_uploads.'/'.$this->guid.'/'.$this->file_name;
+        }
         return $this->_url;
     }
     

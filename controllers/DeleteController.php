@@ -49,8 +49,13 @@ class DeleteController extends Controller
 	 */
 	public function actionDelete($id)
 	{
-            $this->loadModel($id)->delete();
-
+            $album = $this->loadModel($id);
+            
+            if (!$album->canDelete()) {
+                throw new CHttpException(301,'You are not allowed to delete this item');
+            }
+            
+            $album->delete();
             // if AJAX request (triggered by deletion via admin grid view), we should not redirect the browser
             if (!isset($_GET['ajax'])) {
                 $this->redirect(isset($_POST['returnUrl']) ? $_POST['returnUrl'] : ['admin']);

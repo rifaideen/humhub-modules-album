@@ -10,6 +10,22 @@ class AlbumModule extends HWebModule
     
     public $defaultController = 'index';
     
+    private $_assetsUrl;
+
+    /**
+     * Get Assets url for this module.
+     */
+    public function getAssetsUrl()
+    {
+        if ($this->_assetsUrl === null) {
+            
+            $this->_assetsUrl = Yii::app()->getAssetManager()->publish(
+                Yii::getPathOfAlias('album.assets')
+            );
+        }
+        return $this->_assetsUrl;
+    }
+    
     /**
      * Add Album Menu on top of the site.
      */

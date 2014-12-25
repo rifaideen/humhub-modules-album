@@ -5,7 +5,7 @@
 <?php
 $am = Yii::app()->assetManager;
 $cs = Yii::app()->clientScript;
-$assets = $am->publish(dirname(__FILE__).'/../../assets');
+$assets = $this->assetsUrl;
 $cs->registerCssFile("$assets/css/normalize.css");
 $cs->registerCssFile("$assets/css/demo.css");
 $cs->registerCssFile("$assets/css/component.css");

@@ -18,6 +18,8 @@
 class Album extends HActiveRecordContent
 {
 	
+        private $_coverImage;
+        
         /**
 	 * @return string the associated database table name
 	 */
@@ -51,7 +53,6 @@ class Album extends HActiveRecordContent
 		// NOTE: you may need to adjust the relation name and the related
 		// class name for the relations automatically generated below.
 		return [
-			//'images' => array(self::HAS_MANY, 'AlbumImage', 'album_id'),
                         'cover' => [self::HAS_ONE,'PublicFile','object_id','condition'=>"cover.object_model ='Album'",'select'=>'cover.id,cover.guid,cover.file_name']
 		];
 	}
@@ -99,6 +100,8 @@ class Album extends HActiveRecordContent
 
 		$criteria=new CDbCriteria;
 
+                $criteria->condition = 'created_by = :creater';
+                $criteria->params = [':creater' => Yii::app()->user->id];
 		$criteria->compare('id',$this->id);
 		$criteria->compare('name',$this->name,true);
 		$criteria->compare('description',$this->description,true);
@@ -168,12 +171,77 @@ class Album extends HActiveRecordContent
         /**
          * Returns a title/text which identifies this IContent.
          *
-         * e.g. Task: foo bar 123...
+         * e.g. Album: foo bar 123...
          *
          * @return String
          */
         public function getContentTitle()
         {
             return "\"" . Helpers::truncateText($this->name, 25) . "\"";
+        }
+        
+        /**
+         * Get Cover Image url if cover is set. otherwise it sends random cover image url.
+         */
+        public function getCoverImage()
+        {
+            if ($this->_coverImage == null) {
+                if ($this->cover instanceof PublicFile) {
+                    $this->_coverImage = $this->cover->url;
+                } else {
+                    $this->_coverImage = $this->module->assetsUrl.'/img/'.rand(1,12).'.jpg';
+                }
+            }
+            return $this->_coverImage;
+        }
+        
+        /**
+         * User can add photo to the album.
+         * @return boolean
+         */
+        public function canAddPhoto($user_id = null)
+        {
+            if ($user_id == null) {
+                $user_id = Yii::app()->user->id;
+            }
+            
+            if ($this->created_by == $user_id) {
+                return true;
+            }
+            
+            return false;
+        }
+        
+        /**
+         * User can edit album or photo in the album
+         * @return boolean
+         */
+        public function canEdit($user_id = null)
+        {
+            if ($user_id == null) {
+                $user_id = Yii::app()->user->id;
+            }
+            
+            if ($this->created_by == $user_id) {
+                return true;
+            }
+            
+            return false;
+        }
+        
+        /**
+         * User can delete album or photo in the album.
+         * @return boolean
+         */
+        public function canDelete($user_id = null)
+        {
+            if ($user_id == null) {
+                $user_id = Yii::app()->user->id;
+            }
+            
+            if ($this->created_by == $user_id) {
+                return true;
+            }
+            return false;
         }
 }

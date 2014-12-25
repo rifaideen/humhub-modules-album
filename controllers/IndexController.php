@@ -44,8 +44,13 @@ class IndexController extends Controller
 	 */
 	public function actionIndex()
 	{
-                //$this->subLayout = null;
-		$dataProvider=new CActiveDataProvider('Album');
+                $criteria = new CDbCriteria();
+                $criteria->condition = 't.created_by = :creater';
+                $criteria->params = [':creater' => Yii::app()->user->id];
+                //$criteria->with = ['cover'];
+		$dataProvider=new CActiveDataProvider('Album',[
+                    'criteria' => $criteria
+                ]);
 		$this->render('/album/index',[
                     'dataProvider'=>$dataProvider,
 		]);

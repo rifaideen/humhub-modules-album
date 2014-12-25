@@ -50,6 +50,9 @@ class UpdateController extends Controller
 	{
             $model=$this->loadModel($id);
 
+            if (!$model->canEdit()) {
+                throw new CHttpException(403,'You are not allowed to perform this action');
+            }
             // Uncomment the following line if AJAX validation is needed
             // $this->performAjaxValidation($model);
 
