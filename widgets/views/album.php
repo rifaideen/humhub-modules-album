@@ -6,43 +6,54 @@
 $am = Yii::app()->assetManager;
 $cs = Yii::app()->clientScript;
 $assets = $this->assetsUrl;
-$cs->registerCssFile("$assets/css/normalize.css");
-$cs->registerCssFile("$assets/css/demo.css");
 $cs->registerCssFile("$assets/css/component.css");
 ?>
-<script src="<?= $assets ?>/js/modernizr.min.js"></script>
-<section id="photostack-<?= $model->id ?>" class="photostack">
-    <div>
-        <figure>
-            <a class="photostack-img"><img src="<?= $model->cover != null ? $model->cover->url : $assets.'/img/'.rand(1,12).'.jpg' ?>" alt="Album Cover" style="width: 240px;height: 240px;"/></a>
-            <figcaption>
-                <h2 class="photostack-title"><?= $model->name ?></h2>
-                <div class="photostack-back">
-                    <p><?= $model->description; ?></p>
+<div class="panel panel-default post" id="album-<?php echo $id; ?>">
+    <div id="album-<?= $id ?>-body" class="panel-body">
+        <?php $this->beginContent('album.views.layouts.wallLayout', array('object' => $model)); ?>
+            <a data-toggle="modal" data-target="#album-modal-<?= $id ?>">
+                <img src="<?= $model->coverImage ?>" class="img-responsive">
+                <h4>
+                    <?= $model->name ?>
+                </h4>
+            </a>
+        <p>
+            <?= $model->description ?>
+        </p>
+            <div class="modal fade" id="album-modal-<?= $id ?>" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true" data-shown="false">
+                <div class="modal-dialog" style="width: 900px;">
+                    <div class="modal-content">
+                        <div class="modal-header">
+                            <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+                            <h4 class="modal-title" id="myModalLabel"><?= $model->name; ?></h4>
+                        </div>
+                        <div class="modal-body">
+                            <div class="loader"></div>
+                            <div class="row album-content"></div>
+                        </div>
+                        <div class="modal-footer" style="display: none;">
+                            <?= $model->description != null ? $model->description. '|' : null ?> Created <?= HHtml::timeago($model->created_at); ?>
+                        </div>
+                    </div>
                 </div>
-            </figcaption>
-        </figure>
-<?php foreach($model->images as $file): ?>
-        <figure>
-            <a class="photostack-img"><img src="<?= $file->image->url ?>" alt="img05" style="width: 240px;height: 240px;"/></a>
-            <figcaption>
-                <h2 class="photostack-title"><?= $file->name; ?></h2>
-                <div class="photostack-back">
-                    <p><?= $file->description ?></p>
-                </div>
-            </figcaption>
-        </figure>
-<?php endforeach; ?>
+            </div>
+        <?php $this->endContent(); ?>
     </div>
-</section>
-<br/>
-<script src="<?= $assets ?>/js/classie.js"></script>
-<script src="<?= $assets ?>/js/photostack.js"></script>
+</div>
 <script>
-        // [].slice.call( document.querySelectorAll( '.photostack' ) ).forEach( function( el ) { new Photostack( el ); } );
-        new Photostack( document.getElementById( "photostack-<?= $model->id ?>" ), {
-                callback : function( item ) {
-                        //console.log(item)
-                }
-        } );
+    $('#album-modal-<?= $id ?>').on('shown.bs.modal', function (e) {
+        $.ajax({
+            url: "<?= $this->createUrl('/album/view',['id'=>$id]) ?>",
+            success: function(data){
+                $('#album-modal-<?= $id ?>' + ' .loader').hide();
+                $('#album-modal-<?= $id ?>' + ' .album-content').html(data);
+                $('#album-modal-<?= $id ?>' + ' .modal-footer').show();
+            }
+        });
+    });
+    $('#album-modal-<?= $id ?>').on('hidden.bs.modal', function (e) {
+        $('#album-modal-<?= $id ?>' + ' .loader').show();
+        $('#album-modal-<?= $id ?>' + ' .album-content').html(null);
+        $('#album-modal-<?= $id ?>' + ' .modal-footer').hide();
+    });
 </script>

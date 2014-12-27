@@ -1,47 +1,9 @@
 <?php
 /* @var $this AlbumController */
 /* @var $model Album */
-
-$this->menu = [
-    [
-      'label' => 'Album Details',
-      'url' => ['//album/details','id'=>$model->id]
-    ],
-    [
-      'label' => 'Add Image',
-      'url' => ['image/create','id'=>$model->id]
-    ],
-    [
-      'label' => 'View Album',
-      'url' => '#',
-      'active' => true
-    ],
-    [
-      'label' => 'Update Album',
-      'url' => ['/album/update','id'=>$model->id]
-    ],
-    [
-      'label' => 'List Albums',
-      'url' => ['/album/index']
-    ],
-    [
-      'label' => 'Create Album',
-      'url' => ['/album/create']
-    ],
-    [
-      'label' => 'Manage Albums',
-      'url' => ['/album/admin'],
-    ],
-];
-
 ?>
 <?php
-$am = Yii::app()->assetManager;
 $assets = $this->module->assetsUrl;
-$cs = Yii::app()->clientScript;
-$cs->registerCssFile("$assets/css/normalize.css");
-$cs->registerCssFile("$assets/css/demo.css");
-$cs->registerCssFile("$assets/css/component.css");
 ?>
 <script src="<?= $assets ?>/js/modernizr.min.js"></script>
     <section id="photostack" class="photostack">
@@ -68,7 +30,12 @@ $cs->registerCssFile("$assets/css/component.css");
             <?php endforeach; ?>
         </div>
     </section>
-
+<div class="lead">
+    <?= $model->name ?>
+</div>
+<p>
+    <?= $model->description ?>
+</p>
 <script src="<?= $assets ?>/js/classie.js"></script>
 <script src="<?= $assets ?>/js/photostack.js"></script>
 <script>

@@ -181,6 +181,13 @@ class Album extends HActiveRecordContent
         }
         
         /**
+         * Get wall title.
+         */
+        public function getWallTitle()
+        {
+            return 'album <b>' . Helpers::truncateText($this->name, 25) . '</b>';
+        }
+        /**
          * Get Cover Image url if cover is set. otherwise it sends random cover image url.
          */
         public function getCoverImage()
@@ -189,7 +196,7 @@ class Album extends HActiveRecordContent
                 if ($this->cover instanceof PublicFile) {
                     $this->_coverImage = $this->cover->url;
                 } else {
-                    $this->_coverImage = $this->module->assetsUrl.'/img/'.rand(1,12).'.jpg';
+                    $this->_coverImage = Yii::app()->getModule('album')->getAssetsUrl().'/img/'.rand(1,12).'.jpg';
                 }
             }
             return $this->_coverImage;

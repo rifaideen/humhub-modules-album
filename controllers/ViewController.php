@@ -48,9 +48,15 @@ class ViewController extends Controller
 	 */
 	public function actionView($id)
 	{
-            $this->render('/album/view',[
-                'model'=>$this->loadModel($id),
-            ]);
+            if (Yii::app()->request->isAjaxRequest) {
+                echo $this->renderPartial('/album/ajaxView',[
+                    'model'=>$this->loadModel($id),
+                ],true);
+            } else {
+                $this->render('/album/view',[
+                    'model'=>$this->loadModel($id),
+                ]);
+            }
 	}
 
         /**

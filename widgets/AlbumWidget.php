@@ -29,6 +29,6 @@ class AlbumWidget extends HWidget
      */
     public function run()
     {
-        $this->render('album',['model'=>$this->album]);
+        $this->render('album',['model'=>$this->album,'id'=>$this->album->id]);
     }
 }
