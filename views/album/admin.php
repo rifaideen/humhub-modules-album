@@ -43,8 +43,16 @@ or <b>=</b>) at the beginning of each of your search values to specify how the c
         'id',
         'name',
         'description',
-        'created_at:datetime',
-        'updated_at:datetime',
+        [
+        	'header' => 'Created',
+        	'value' => 'HHtml::timeAgo($data->created_at)',
+        	'type'=>'html'
+        ],
+        [
+        	'header' => 'Updated',
+        	'value' => 'HHtml::timeAgo($data->updated_at)',
+        	'type'=>'html'
+        ],
         /*
         'created_by',
         'updated_by',
@@ -56,4 +64,5 @@ or <b>=</b>) at the beginning of each of your search values to specify how the c
             'deleteButtonUrl' => '["/album/delete","id"=>$data->id]'
         ],
     ],
-]); ?>
+]); 
+?>

@@ -58,7 +58,7 @@ class UpdateController extends Controller
 
             if(isset($_POST['Album']))
             {
-                    $model->attributes=$_POST['Album'];
+                    $model->attributes = Yii::app()->input->stripClean($_POST['Album']);
                     if($model->save())
                             $this->redirect(['/album/view','id'=>$model->id]);
             }

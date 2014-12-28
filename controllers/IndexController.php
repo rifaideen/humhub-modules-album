@@ -47,9 +47,12 @@ class IndexController extends Controller
                 $criteria = new CDbCriteria();
                 $criteria->condition = 't.created_by = :creater';
                 $criteria->params = [':creater' => Yii::app()->user->id];
-                //$criteria->with = ['cover'];
+                $criteria->with = ['cover'];
 		$dataProvider=new CActiveDataProvider('Album',[
-                    'criteria' => $criteria
+                    'criteria' => $criteria,
+                    'pagination' => array(
+                        'pageSize' => 10
+                    )
                 ]);
 		$this->render('/album/index',[
                     'dataProvider'=>$dataProvider,

@@ -201,7 +201,13 @@ class Album extends HActiveRecordContent
             }
             return $this->_coverImage;
         }
-        
+        /**
+         * Get Album url.
+         */
+        public function getUrl()
+        {
+            return Yii::app()->createUrl('/album/view',['id'=>$this->id]);
+        }
         /**
          * User can add photo to the album.
          * @return boolean
