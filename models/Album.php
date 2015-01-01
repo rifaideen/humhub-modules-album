@@ -53,7 +53,8 @@ class Album extends HActiveRecordContent
 		// NOTE: you may need to adjust the relation name and the related
 		// class name for the relations automatically generated below.
 		return [
-                        'cover' => [self::HAS_ONE,'PublicFile','object_id','condition'=>"cover.object_model ='Album'",'select'=>'cover.id,cover.guid,cover.file_name']
+                    'cover' => [self::HAS_ONE,'PublicFile','object_id','condition'=>"cover.object_model ='Album'",'select'=>'cover.id,cover.guid,cover.file_name'],
+                    'owner' => [self::BELONGS_TO,'User','created_by','select'=>'guid']
 		];
 	}
         
@@ -63,7 +64,7 @@ class Album extends HActiveRecordContent
          */
         public function getImages()
         {
-            return AlbumImage::model()->with('image')->findAllByAttributes(['album_id'=>$this->id]);
+                return AlbumImage::model()->with('image')->findAllByAttributes(['album_id'=>$this->id]);
         }
 
         /**
@@ -100,7 +101,8 @@ class Album extends HActiveRecordContent
 
 		$criteria=new CDbCriteria;
 
-                $criteria->condition = 'created_by = :creater';
+		$criteria->with = ['owner'];
+                $criteria->condition = 't.created_by = :creater';
                 $criteria->params = [':creater' => Yii::app()->user->id];
 		$criteria->compare('id',$this->id);
 		$criteria->compare('name',$this->name,true);
@@ -112,6 +114,9 @@ class Album extends HActiveRecordContent
 
 		return new CActiveDataProvider($this, [
 			'criteria'=>$criteria,
+			'pagination' => [
+                            'pageSize' => 10
+                         ]
 		]);
 	}
 
@@ -131,17 +136,17 @@ class Album extends HActiveRecordContent
          */
         public function afterSave()
         {
-            parent::afterSave();
-            
-            if ($this->isNewRecord) {
-                $activity = Activity::CreateForContent($this);
-                $activity->type = "AlbumCreated";
-                $activity->module = "album";
-                $activity->save();
-                $activity->fire();
-            }
-            
-            return true;
+                parent::afterSave();
+
+                if ($this->isNewRecord) {
+                    $activity = Activity::CreateForContent($this);
+                    $activity->type = "AlbumCreated";
+                    $activity->module = "album";
+                    $activity->save();
+                    $activity->fire();
+                }
+
+                return true;
         }
         
         /**
@@ -149,15 +154,15 @@ class Album extends HActiveRecordContent
          */
         public function beforeDelete() 
         {
-            $cover = $this->cover;
-            if ($cover != null) {
-                $cover->delete();
-            }
-            foreach ($this->getImages() as $image) {
-                $image->delete();
-            }
-            
-            return parent::beforeDelete();
+                $cover = $this->cover;
+                if ($cover != null) {
+                    $cover->delete();
+                }
+                foreach ($this->getImages() as $image) {
+                    $image->delete();
+                }
+
+                return parent::beforeDelete();
         }
         
         /**
@@ -165,7 +170,7 @@ class Album extends HActiveRecordContent
          */
         public function getWallOut()
         {
-            return Yii::app()->getController()->widget('application.modules.album.widgets.AlbumWidget', ['album' => $this], true);
+                return Yii::app()->getController()->widget('application.modules.album.widgets.AlbumWidget', ['album' => $this], true);
         }
         
         /**
@@ -177,7 +182,7 @@ class Album extends HActiveRecordContent
          */
         public function getContentTitle()
         {
-            return "\"" . Helpers::truncateText($this->name, 25) . "\"";
+                return "\"" . Helpers::truncateText($this->name, 25) . "\"";
         }
         
         /**
@@ -185,28 +190,28 @@ class Album extends HActiveRecordContent
          */
         public function getWallTitle()
         {
-            return 'album <b>' . Helpers::truncateText($this->name, 25) . '</b>';
+                return 'album <b>' . Helpers::truncateText($this->name, 25) . '</b>';
         }
         /**
          * Get Cover Image url if cover is set. otherwise it sends random cover image url.
          */
         public function getCoverImage()
         {
-            if ($this->_coverImage == null) {
-                if ($this->cover instanceof PublicFile) {
-                    $this->_coverImage = $this->cover->url;
-                } else {
-                    $this->_coverImage = Yii::app()->getModule('album')->getAssetsUrl().'/img/'.rand(1,12).'.jpg';
+                if ($this->_coverImage == null) {
+                    if ($this->cover instanceof PublicFile) {
+                        $this->_coverImage = $this->cover->url;
+                    } else {
+                        $this->_coverImage = Yii::app()->getModule('album')->getAssetsUrl().'/img/'.rand(1,12).'.jpg';
+                    }
                 }
-            }
-            return $this->_coverImage;
+                return $this->_coverImage;
         }
         /**
          * Get Album url.
          */
         public function getUrl()
         {
-            return Yii::app()->createUrl('/album/view',['id'=>$this->id]);
+                return Yii::app()->createUrl('/album/view',['id'=>$this->id]);
         }
         /**
          * User can add photo to the album.
@@ -214,15 +219,15 @@ class Album extends HActiveRecordContent
          */
         public function canAddPhoto($user_id = null)
         {
-            if ($user_id == null) {
-                $user_id = Yii::app()->user->id;
-            }
-            
-            if ($this->created_by == $user_id) {
-                return true;
-            }
-            
-            return false;
+                if ($user_id == null) {
+                    $user_id = Yii::app()->user->id;
+                }
+
+                if ($this->created_by == $user_id) {
+                    return true;
+                }
+
+                return false;
         }
         
         /**
@@ -231,15 +236,15 @@ class Album extends HActiveRecordContent
          */
         public function canEdit($user_id = null)
         {
-            if ($user_id == null) {
-                $user_id = Yii::app()->user->id;
-            }
-            
-            if ($this->created_by == $user_id) {
-                return true;
-            }
-            
-            return false;
+                if ($user_id == null) {
+                    $user_id = Yii::app()->user->id;
+                }
+
+                if ($this->created_by == $user_id) {
+                    return true;
+                }
+
+                return false;
         }
         
         /**
@@ -248,13 +253,13 @@ class Album extends HActiveRecordContent
          */
         public function canDelete($user_id = null)
         {
-            if ($user_id == null) {
-                $user_id = Yii::app()->user->id;
-            }
-            
-            if ($this->created_by == $user_id) {
-                return true;
-            }
-            return false;
+                if ($user_id == null) {
+                    $user_id = Yii::app()->user->id;
+                }
+
+                if ($this->created_by == $user_id) {
+                    return true;
+                }
+                return false;
         }
 }

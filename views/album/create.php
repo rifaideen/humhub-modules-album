@@ -5,7 +5,7 @@
 $this->menu = [
     [
       'label' => 'List Album',
-      'url' => ['/album/index']
+      'url' => ['/album/index','uguid'=>$user->guid]
     ],
     [
       'label' => 'Create Album',
@@ -14,7 +14,7 @@ $this->menu = [
     ],
     [
       'label' => 'Manage Albums',
-      'url' => ['/album/admin'],
+      'url' => ['/album/admin','uguid'=>$user->guid],
     ],
 ];
 ?>

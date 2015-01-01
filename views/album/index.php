@@ -1,25 +1,8 @@
 <?php
 /* @var $this AlbumController */
 /* @var $dataProvider CActiveDataProvider */
-
-$this->menu = [
-    [
-      'label' => 'List Album',
-      'url' => '#',
-      'active' => true
-    ],
-    [
-      'label' => 'Create Album',
-      'url' => ['/album/create']
-    ],
-    [
-      'label' => 'Manage Albums',
-      'url' => ['/album/admin'],
-    ],
-];
 ?>
 
-<!--<h1>Albums</h1>-->
 <div class="panel panel-info">
     <div class="panel-heading">
         <div class="row">
@@ -28,16 +11,18 @@ $this->menu = [
                     <i class="fa fa-image"></i> Albums
                 </h3>
             </div>
-            <div class="col-md-2 col-md-offset-4">
-                <a href="<?= $this->createUrl('/album/create') ?>" class="btn btn-info">
+            <?php if ($user->id == Yii::app()->user->id): ?>
+            <div class="col-md-3  col-md-offset-1">
+                <a href="<?= $this->createUrl('/album/create',['uguid'=>$user->guid]) ?>" class="btn btn-info">
                     <i class="fa fa-plus"></i> Create Album
                 </a>
             </div>
-            <div class="col-md-2">
-                <a href="<?= $this->createUrl('/album/admin') ?>" class="btn btn-warning">
+            <div class="col-md-4">
+                <a href="<?= $this->createUrl('/album/admin',['uguid'=>$user->guid]) ?>" class="btn btn-warning">
                     <i class="fa fa-chevron-right"></i> Manage Albums
                 </a>
             </div>
+        <?php endif; ?>
         </div>
     </div>
     <div class="panel-body">

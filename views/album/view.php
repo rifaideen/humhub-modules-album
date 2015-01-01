@@ -1,39 +1,6 @@
 <?php
 /* @var $this AlbumController */
 /* @var $model Album */
-
-$this->menu = [
-    [
-      'label' => 'Album Details',
-      'url' => ['//album/details','id'=>$model->id]
-    ],
-    [
-      'label' => 'Add Image',
-      'url' => ['image/create','id'=>$model->id]
-    ],
-    [
-      'label' => 'View Album',
-      'url' => '#',
-      'active' => true
-    ],
-    [
-      'label' => 'Update Album',
-      'url' => ['/album/update','id'=>$model->id]
-    ],
-    [
-      'label' => 'List Albums',
-      'url' => ['/album/index']
-    ],
-    [
-      'label' => 'Create Album',
-      'url' => ['/album/create']
-    ],
-    [
-      'label' => 'Manage Albums',
-      'url' => ['/album/admin'],
-    ],
-];
-
 ?>
 <?php
 $am = Yii::app()->assetManager;
@@ -68,6 +35,8 @@ $cs->registerCssFile("$assets/css/component.css");
             <?php endforeach; ?>
         </div>
     </section>
+    <!-- show controls -->
+    <?php $this->widget('application.modules_core.wall.widgets.WallEntryAddonWidget', array('object' => $model)); ?>
 
 <script src="<?= $assets ?>/js/classie.js"></script>
 <script src="<?= $assets ?>/js/photostack.js"></script>

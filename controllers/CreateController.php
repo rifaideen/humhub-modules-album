@@ -4,7 +4,7 @@
  *
  * @author rifaideen
  */
-class CreateController extends Controller
+class CreateController extends ContentContainerController
 {
         public $subLayout = "application.modules.album.views._layout";
 
@@ -12,7 +12,7 @@ class CreateController extends Controller
 
         public $defaultAction = 'create';
         
-        /**
+    /**
 	 * @return array action filters
 	 */
 	public function filters()
@@ -47,6 +47,14 @@ class CreateController extends Controller
 	 */
 	public function actionCreate()
 	{
+
+		$user = $this->getUser();
+
+		if ($user->id != Yii::app()->user->id) {
+			throw new CHttpException(403, 'You can create album only on your profile.');
+		}
+
+		$this->subLayout = "application.modules.album.views._layout";
 		$model = new Album;
 
 		// Uncomment the following line if AJAX validation is needed
@@ -61,12 +69,13 @@ class CreateController extends Controller
 			$model->attributes=$_POST['Album'];
 			if ($model->save()) {
                                 PublicFile::attachPrecreated($model, Yii::app()->request->getParam('cover'));
-				$this->redirect(['/album/view','id'=>$model->id]);
+				$this->redirect(['/album/view','id'=>$model->id,'uguid'=>$user->guid]);
                         }
 		}
 
 		$this->render('/album/create',[
                     'model'=>$model,
+                    'user'=>$user
 		]);
 	}
 }

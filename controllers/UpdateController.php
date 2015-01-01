@@ -4,7 +4,7 @@
  *
  * @author rifaideen
  */
-class UpdateController extends Controller
+class UpdateController extends ContentContainerController
 {
         public $subLayout = "application.modules.album.views._layout";
 
@@ -48,6 +48,7 @@ class UpdateController extends Controller
 	 */
 	public function actionUpdate($id)
 	{
+            $user = $this->getUser();
             $model=$this->loadModel($id);
 
             if (!$model->canEdit()) {
@@ -60,7 +61,7 @@ class UpdateController extends Controller
             {
                     $model->attributes = Yii::app()->input->stripClean($_POST['Album']);
                     if($model->save())
-                            $this->redirect(['/album/view','id'=>$model->id]);
+                            $this->redirect(['/album/view','id'=>$model->id,'uguid'=>$user->guid]);
             }
 
             $this->render('/album/update',[

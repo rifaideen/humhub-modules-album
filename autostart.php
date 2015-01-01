@@ -9,7 +9,7 @@ Yii::app()->moduleManager->register([
     ],
     // Events to Catch 
     'events' => [
-        ['class' => 'TopMenuWidget', 'event' => 'onInit', 'callback' => ['AlbumModule', 'onTopMenuInit']],
+        ['class' => 'ProfileMenuWidget', 'event' => 'onInit', 'callback' => ['AlbumModule', 'onProfileMenuInit']],
     ],
 ]);
 ?>

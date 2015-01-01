@@ -13,6 +13,18 @@ class AlbumModule extends HWebModule
     private $_assetsUrl;
 
     /**
+     * Attach user module behavior to provide this module to user.
+     */
+    public function behaviors()
+    {
+    	return array(
+    		'UserModuleBehavior' => array(
+                'class' => 'application.modules_core.user.behaviors.UserModuleBehavior',
+            )
+    	);
+    }
+
+    /**
      * Get Assets url for this module.
      */
     public function getAssetsUrl()
@@ -27,19 +39,22 @@ class AlbumModule extends HWebModule
     }
     
     /**
-     * Add Album Menu on top of the site.
+     * Add Album Menu to user profile menu.
      */
-    public static function onTopMenuInit($event)
+    public static function onProfileMenuInit($event)
     {
-        $event->sender->addItem([
-            'label' => 'Album',
-            'url' => Yii::app()->createUrl('//album'),
-            'icon' => '<i class="fa fa-image"></i>',
-            'isActive' => (Yii::app()->controller->module && Yii::app()->controller->module->id == 'album'),
-            'sortOrder' => 800,
-        ]);
+
+        $user = Yii::app()->getController()->getUser();
+
+        if ($user->isModuleEnabled('album')) {
+            $event->sender->addItem(array(
+                'label' => 'Album',
+                'url' => Yii::app()->createUrl('//album', array('uguid' => $user->guid)),
+                'isActive' => Yii::app()->controller->module && Yii::app()->controller->module->id == 'album',
+            ));
+        }
     }
-    
+
     /**
      * Create new folder to save albums on enabled.
      */

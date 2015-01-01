@@ -5,11 +5,11 @@
 $this->menu = [
     [
       'label' => 'List Album',
-      'url' => ['/album/index']
+      'url' => ['/album/index','uguid'=>$user->guid]
     ],
     [
       'label' => 'Create Album',
-      'url' => ['/album/create'],
+      'url' => ['/album/create','uguid'=>$user->guid],
     ],
     [
       'label' => 'Manage Albums',
@@ -59,9 +59,9 @@ or <b>=</b>) at the beginning of each of your search values to specify how the c
         */
         [
             'class'=>'CButtonColumn',
-            'viewButtonUrl' => '["/album/view","id"=>$data->id]',
-            'updateButtonUrl' => '["/album/update","id"=>$data->id]',
-            'deleteButtonUrl' => '["/album/delete","id"=>$data->id]'
+            'viewButtonUrl' => '["/album/view","id"=>$data->id,"uguid"=>$data->owner->guid]',
+            'updateButtonUrl' => '["/album/update","id"=>$data->id,"uguid"=>$data->owner->guid]',
+            'deleteButtonUrl' => '["/album/delete","id"=>$data->id,"uguid"=>$data->owner->guid]'
         ],
     ],
 ]); 

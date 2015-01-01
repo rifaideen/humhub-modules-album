@@ -4,7 +4,7 @@
  *
  * @author rifaideen
  */
-class AdminController extends Controller
+class AdminController extends ContentContainerController
 {
     
 	public $subLayout = "application.modules.album.views._layout";
@@ -47,7 +47,19 @@ class AdminController extends Controller
 	 */
 	public function actionAdmin()
 	{
-            $this->subLayout = "application.modules.album.views._layout";
+            $user = $this->getUser();
+
+            /**
+             * Though we made this action to display the users own album without 
+             * considering the uguid received via GET parameter.
+             * we should throw the exception if current user id is different 
+             * from $user->id we fetched based on guid GET parameter.
+             */
+            if ($user->id != Yii::app()->user->id) {
+                    throw new CHttpException(403, 'You can manage your albums only.');
+            }
+
+            $this->subLayout = "album.views._layout";
             $model=new Album('search');
             $model->unsetAttributes();  // clear any default values
             if(isset($_GET['Album'])) {
@@ -56,6 +68,7 @@ class AdminController extends Controller
 
             $this->render('/album/admin',[
                     'model'=>$model,
+                    'user'=>$user
             ]);
 	}
 }

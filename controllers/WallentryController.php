@@ -1,25 +1,22 @@
 <?php
 /**
- * View Album In a nice layout with album details as first slide.
+ * Render Album via ajax on Wall.
  *
  * @author rifaideen
  */
-class ViewController extends ContentContainerController
+class WallentryController extends Controller
 {
-        public $subLayout = "application.modules.album.views._layout";
-
-        public $menu = [];
-
+    
         public $defaultAction = 'view';
         
-    /**
+        /**
 	 * @return array action filters
 	 */
 	public function filters()
 	{
             return [
                 'accessControl', // perform access control for CRUD operations
-                'postOnly + delete', // we only allow deletion via POST request
+                'ajaxOnly'
             ];
 	}
 
@@ -42,22 +39,15 @@ class ViewController extends ContentContainerController
             ];
 	}
         
-    /**
+        /**
 	 * Displays a particular model.
 	 * @param integer $id the ID of the model to be displayed
 	 */
 	public function actionView($id)
 	{
-
-            if (Yii::app()->request->isAjaxRequest) {
-                echo $this->renderPartial('/album/ajaxView',[
-                    'model'=>$this->loadModel($id),
-                ],true);
-            } else {
-                $this->render('/album/view',[
-                    'model'=>$this->loadModel($id),
-                ]);
-            }
+            echo $this->renderPartial('/album/ajaxView',[
+                'model'=>$this->loadModel($id),
+            ],true);
 	}
 
         /**
@@ -69,8 +59,7 @@ class ViewController extends ContentContainerController
 	 */
 	public function loadModel($id)
 	{
-			$user = $this->getUser();
-            $model = Album::model()->findByAttributes(['id'=>$id,'created_by'=>$user->id]);
+            $model = Album::model()->findByPk($id);
             if ($model===null) {
                     throw new CHttpException(404,'The requested album does not exist.');
             }

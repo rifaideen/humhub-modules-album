@@ -4,12 +4,12 @@
  *
  * @author rifaideen
  */
-class IndexController extends Controller
+class IndexController extends ContentContainerController
 {
         public $subLayout = "application.modules.album.views._layout";
 
         public $menu = [];
-        
+
         /**
 	 * @return array action filters
 	 */
@@ -38,24 +38,29 @@ class IndexController extends Controller
                     ],
 		];
 	}
-        
+    
         /**
 	 * Lists all models.
 	 */
 	public function actionIndex()
 	{
+		
+		$this->checkContainerAccess();
+		$user = $this->getUser();
                 $criteria = new CDbCriteria();
                 $criteria->condition = 't.created_by = :creater';
-                $criteria->params = [':creater' => Yii::app()->user->id];
+                $criteria->params = [':creater' => $user->id];
                 $criteria->with = ['cover'];
 		$dataProvider=new CActiveDataProvider('Album',[
-                    'criteria' => $criteria,
-                    'pagination' => array(
+        	'criteria' => $criteria,
+                    'pagination' => [
                         'pageSize' => 10
-                    )
+                     ]
                 ]);
+
 		$this->render('/album/index',[
-                    'dataProvider'=>$dataProvider,
+        	'dataProvider'=>$dataProvider,
+                    'user' => $user
 		]);
 	}
 }
