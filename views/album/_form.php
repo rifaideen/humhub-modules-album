@@ -31,10 +31,10 @@
 		<?php echo $form->error($model,'description'); ?>
 	</div>
 
+        <?php if ($model->isNewRecord): ?>
         <div class="row">
                 <label>Album Cover</label><br/>
                 <?php 
-                if ($model->isNewRecord):
                     $this->widget('application.modules.album.widgets.ImageUploadButtonWidget',[
                         'fileListFieldName' => 'cover',
                         'object' => $model,
@@ -45,9 +45,9 @@
                     $this->widget('application.modules_core.file.widgets.FileUploadListWidget',[
                         'uploaderId' => 'cover_uploader'
                     ]); 
-                endif;
                 ?>
         </div>
+        <?php endif; ?>
         
 	<div class="row">
 		<?php echo CHtml::submitButton('Create Album',['class'=>'btn btn-primary']); ?>

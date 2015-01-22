@@ -6,7 +6,7 @@
     <div class="thumbnail">
         <img class="img-rounded" src="<?= $data->coverImage ?>">
         <div class="caption text-center">
-            <h3><a href="<?= $this->createUserUrl('/album/view',['id'=>$data->id]) ?>"><?= $data->name ?></a></h3>
+            <h3><a href="<?= $this->createUserUrl('/album/view/view',['id'=>$data->id]) ?>"><?= $data->name ?></a></h3>
         </div>
     </div>
 </div>

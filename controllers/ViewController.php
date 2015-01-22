@@ -48,10 +48,11 @@ class ViewController extends ContentContainerController
 	 */
 	public function actionView($id)
 	{
-
+            
             if (Yii::app()->request->isAjaxRequest) {
                 echo $this->renderPartial('/album/ajaxView',[
                     'model'=>$this->loadModel($id),
+                    'user'=>$this->getUser()
                 ],true);
             } else {
                 $this->render('/album/view',[

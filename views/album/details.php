@@ -3,6 +3,9 @@
 /* @var $model Album */
 /* @var $file PublicFile */
 Yii::app()->clientScript->registerCss('grid-image-fix','.grid img {height:120px;width:120px;} .button-column img {height: inherit !important;width: inherit !important;}');
+
+$uguid = Yii::app()->user->guid;
+
 $this->menu = [
     [
       'label' => 'Album Details',
@@ -15,30 +18,37 @@ $this->menu = [
     ],
     [
       'label' => 'View Album',
-      'url' => ['/album/view','id'=>$model->id]
+      'url' => ['/album/view/view','id'=>$model->id,'uguid'=>$uguid]
     ],
     [
       'label' => 'Update Album',
-      'url' => ['/album/update','id'=>$model->id]
+      'url' => ['/album/update/update','id'=>$model->id,'uguid'=>$uguid]
     ],
     [
       'label' => 'List Album',
-      'url' => ['/album'],
+      'url' => ['/album','uguid'=>$uguid]
     ],
     [
       'label' => 'Create Album',
-      'url' => ['/album/create']
+      'url' => ['/album/create','uguid'=>$uguid]
     ],
     [
       'label' => 'Manage Albums',
-      'url' => ['/album/admin'],
+      'url' => ['/album/admin','uguid'=>$uguid]
     ],
 ];
 ?>
 <div class="panel" style="border: 2px solid #7191A8;">
-    <div class="panel-heading">Album</div>
+    <div class="panel-heading">Album Details</div>
     <div class="panel-body">
-        <?php $this->renderPartial('/album/_view',['data'=>$model]); ?>
+        <div class="row">
+            <div class="col-md-3">
+                <?php echo CHtml::link(CHtml::encode($model->name),['/album/view','id'=>$model->id,'uguid'=>$uguid]); ?>
+            </div>
+            <div class="col-md-9">
+                <?php echo CHtml::encode($model->description); ?>
+            </div>
+        </div>
     </div>
 </div>
 <div class="panel panel-success">

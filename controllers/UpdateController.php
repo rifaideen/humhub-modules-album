@@ -61,7 +61,7 @@ class UpdateController extends ContentContainerController
             {
                     $model->attributes = Yii::app()->input->stripClean($_POST['Album']);
                     if($model->save())
-                            $this->redirect(['/album/view','id'=>$model->id,'uguid'=>$user->guid]);
+                            $this->redirect(['/album/view/view','id'=>$model->id,'uguid'=>$user->guid]);
             }
 
             $this->render('/album/update',[

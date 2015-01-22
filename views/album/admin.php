@@ -59,9 +59,17 @@ or <b>=</b>) at the beginning of each of your search values to specify how the c
         */
         [
             'class'=>'CButtonColumn',
-            'viewButtonUrl' => '["/album/view","id"=>$data->id,"uguid"=>$data->owner->guid]',
-            'updateButtonUrl' => '["/album/update","id"=>$data->id,"uguid"=>$data->owner->guid]',
-            'deleteButtonUrl' => '["/album/delete","id"=>$data->id,"uguid"=>$data->owner->guid]'
+            'viewButtonUrl' => '["/album/view/view","id"=>$data->id,"uguid"=>$data->owner->guid]',
+            'updateButtonUrl' => '["/album/update/update","id"=>$data->id,"uguid"=>$data->owner->guid]',
+            'deleteButtonUrl' => '["/album/delete/delete","id"=>$data->id,"uguid"=>$data->owner->guid]',
+            'template' => '{view} {update} {details} {delete}',
+            'buttons' => [
+                'details' => [
+                    'label' => 'Details',
+                    'imageUrl' => $this->module->getAssetsUrl() .'/img/details.png',
+                    'url' => '["/album/details","id"=>$data->id]',
+                ]
+            ]
         ],
     ],
 ]); 

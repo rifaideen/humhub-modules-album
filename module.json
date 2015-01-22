@@ -3,7 +3,7 @@
     "name": "Albums",
     "description": "A group of images as memorable albums.",
     "keywords": ["album"],
-    "version": "0.1",
+    "version": "1.0",
     "screenshots": [
         "assets/screenshot/screen1.png",
         "assets/screenshot/screen2.png"

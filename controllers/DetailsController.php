@@ -42,12 +42,14 @@ class DetailsController extends Controller
 
         public function actionIndex($id)
         {
-            $model = Album::model()->findByPk($id);
+            $model = Album::model()->findByAttributes(['id'=>$id,'created_by'=>Yii::app()->user->id]);
 
             if ($model === null) {
                 throw new CHttpException(404,'The requested album does not exists.');
             }
 
+            $this->subLayout = "application.modules.album.views._layout";
+            
             $criteria = new CDbCriteria([
                 'condition'=>'album_id = '.$model->id,
                 'with'=>'image'

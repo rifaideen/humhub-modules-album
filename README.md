@@ -6,12 +6,16 @@ This widget allows user to add albums with description and optional album cover.
 
 ### Manual Setup
 
- Clone the __[module](https://github.com/rifaideen/humhub-modules-album)__ from git into modules folder as album.
+ Clone the __[module](https://github.com/rifaideen/humhub-modules-album)__ from git into modules folder and rename the cloned folder as album.
 
  Thats all now module is ready to enable and use.
 
 ### Features:
 
+- Can be enabled/disabled by each user.
+- Can comment.
+- Can like.
+- Auto post to wall.
 - Show album in beautiful layout.
 - Auto create folder to save albums.
 
