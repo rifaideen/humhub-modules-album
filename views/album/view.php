@@ -42,4 +42,12 @@ $cs->registerCssFile("$assets/css/component.css");
 <script src="<?= $assets ?>/js/photostack.js"></script>
 <script>
         new Photostack( document.getElementById( 'photostack' ) );
+        $(document).ready(function() {
+            $("#comment_create_post_Album_<?= $model->id ?>").css({
+                left: "0px",
+                opacity:"100",
+                margin: "5px"
+            });
+            $("#comment_create_post_Album_<?= $model->id ?>").val("Comment");
+        });
 </script>
