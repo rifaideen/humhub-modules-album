@@ -90,7 +90,7 @@ class ImageController extends Controller
             {
                     $model->attributes=$_POST['AlbumImage'];
                     if ($model->save()) {
-                        $this->redirect(['/album/details','id'=>$model->album->id]);
+                        $this->redirect(['/album/details','id'=>$model->album->id,'username'=>Yii::app()->user->name]);
                     }
             }
 

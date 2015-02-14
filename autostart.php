@@ -11,5 +11,10 @@ Yii::app()->moduleManager->register([
     'events' => [
         ['class' => 'ProfileMenuWidget', 'event' => 'onInit', 'callback' => ['AlbumModule', 'onProfileMenuInit']],
     ],
+    'urlManagerRules' => [
+        [
+            'class' => 'album.components.AlbumUrlRule'
+        ]
+    ]
 ]);
 ?>

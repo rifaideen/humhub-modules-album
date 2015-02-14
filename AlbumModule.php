@@ -9,7 +9,7 @@ class AlbumModule extends HWebModule
     public $subLayout = "application.modules_core.dashboard.views._layout";
     
     public $defaultController = 'index';
-    
+
     private $_assetsUrl;
 
     /**
@@ -49,7 +49,7 @@ class AlbumModule extends HWebModule
         if ($user->isModuleEnabled('album')) {
             $event->sender->addItem(array(
                 'label' => 'Album',
-                'url' => Yii::app()->createUrl('//album', array('uguid' => $user->guid)),
+                'url' => Yii::app()->createUrl('//album', array('username' => $user->username)),
                 'isActive' => Yii::app()->controller->module && Yii::app()->controller->module->id == 'album',
             ));
         }

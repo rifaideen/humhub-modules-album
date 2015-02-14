@@ -13,12 +13,12 @@
             </div>
             <?php if ($user->id == Yii::app()->user->id): ?>
             <div class="col-md-3  col-md-offset-1">
-                <a href="<?= $this->createUrl('/album/create',['uguid'=>$user->guid]) ?>" class="btn btn-info">
+                <a href="<?= $this->createUrl('/album/create',['username'=>$user->username]) ?>" class="btn btn-info">
                     <i class="fa fa-plus"></i> Create Album
                 </a>
             </div>
             <div class="col-md-4">
-                <a href="<?= $this->createUrl('/album/admin',['uguid'=>$user->guid]) ?>" class="btn btn-warning">
+                <a href="<?= $this->createUrl('/album/admin',['username'=>$user->username]) ?>" class="btn btn-warning">
                     <i class="fa fa-chevron-right"></i> Manage Albums
                 </a>
             </div>
@@ -31,6 +31,9 @@
             $this->widget('zii.widgets.CListView', [
                 'dataProvider' => $dataProvider,
                 'itemView' => '/album/_view',
+                'viewData' => [
+                    'user' => $user
+                ],
                 'summaryText' => false,
                 'enableSorting' => false,
                 'pagerCssClass' => 'album-pagination',

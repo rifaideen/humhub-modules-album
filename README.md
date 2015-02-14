@@ -2,7 +2,7 @@
 
 A group of images as memorable albums.
 
-This widget allows user to add albums with description and optional album cover.
+This module allows user to add albums with description and optional album cover.
 
 ### Manual Setup
 
@@ -18,6 +18,16 @@ This widget allows user to add albums with description and optional album cover.
 - Auto post to wall.
 - Show album in beautiful layout.
 - Auto create folder to save albums.
+- Clean Url
+
+### Minimal Requirements
+
+- php 5.4+
+- humhub v-0.10.1 with url's in path format.
+
+### Disclaimer
+
+- Use at your own risk.
 
 ### Status
 

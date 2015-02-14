@@ -5,6 +5,7 @@
 Yii::app()->clientScript->registerCss('grid-image-fix','.grid img {height:120px;width:120px;} .button-column img {height: inherit !important;width: inherit !important;}');
 
 $uguid = Yii::app()->user->guid;
+$username = Yii::app()->user->name;
 
 $this->menu = [
     [
@@ -14,27 +15,27 @@ $this->menu = [
     ],
     [
       'label' => 'Add Image',
-      'url' => ['/album/image/create','id'=>$model->id]
+      'url' => ['/album/image/create','id'=>$model->id,'username'=>$username]
     ],
     [
       'label' => 'View Album',
-      'url' => ['/album/view/view','id'=>$model->id,'uguid'=>$uguid]
+      'url' => ['/album/view','id'=>$model->id,'username'=>$username]
     ],
     [
       'label' => 'Update Album',
-      'url' => ['/album/update/update','id'=>$model->id,'uguid'=>$uguid]
+      'url' => ['/album/update','id'=>$model->id,'username'=>$username]
     ],
     [
       'label' => 'List Album',
-      'url' => ['/album','uguid'=>$uguid]
+      'url' => ['/album/index','username'=>$username]
     ],
     [
       'label' => 'Create Album',
-      'url' => ['/album/create','uguid'=>$uguid]
+      'url' => ['/album/create','username'=>$username]
     ],
     [
       'label' => 'Manage Albums',
-      'url' => ['/album/admin','uguid'=>$uguid]
+      'url' => ['/album/admin','username'=>$username]
     ],
 ];
 ?>
@@ -43,7 +44,7 @@ $this->menu = [
     <div class="panel-body">
         <div class="row">
             <div class="col-md-3">
-                <?php echo CHtml::link(CHtml::encode($model->name),['/album/view','id'=>$model->id,'uguid'=>$uguid]); ?>
+                <?php echo CHtml::link(CHtml::encode($model->name),['/album/view','id'=>$model->id,'username'=>$username]); ?>
             </div>
             <div class="col-md-9">
                 <?php echo CHtml::encode($model->description); ?>

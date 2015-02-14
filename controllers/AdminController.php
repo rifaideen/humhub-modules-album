@@ -11,7 +11,7 @@ class AdminController extends ContentContainerController
         
         public $menu = [];
         
-        public $defaultAction = 'admin';
+        public $defaultAction = 'adminone';
 
         /**
 	 * @return array action filters
@@ -45,7 +45,7 @@ class AdminController extends ContentContainerController
 	/**
 	 * Manages all models.
 	 */
-	public function actionAdmin()
+	public function actionAdminone()
 	{
             $user = $this->getUser();
 
