@@ -69,6 +69,11 @@ class AlbumModule extends HWebModule
             mkdir($path,0777,true);
         }
         
+        $blacklisted_objects = explode(',', HSetting::Get('showFilesWidgetBlacklist','file'));
+        if (!in_array('Album', $blacklisted_objects)) {
+            $blacklisted_objects[] = 'Album';
+            HSetting::Set('showFilesWidgetBlacklist', implode(',', $blacklisted_objects));
+        }
     }
     
     /**
@@ -80,6 +85,13 @@ class AlbumModule extends HWebModule
             foreach (Album::model()->findAll() as $album) {
                 $album->delete();
             }
+            
+            $blacklisted_objects = explode(',', HSetting::Get('showFilesWidgetBlacklist','file'));
+            if (false !== ($key = array_search('Album', $blacklisted_objects))) {
+                unset($blacklisted_objects[$key]);
+                HSetting::Set('showFilesWidgetBlacklist', implode(',', $blacklisted_objects));
+            }
+        
             return true;
         }
 

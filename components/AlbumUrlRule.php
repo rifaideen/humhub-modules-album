@@ -17,16 +17,11 @@ class AlbumUrlRule extends CBaseUrlRule
 
         if (isset($params['username'],$params['id']) && substr($route, 0, 5) == "album") {
             $userName = $params['username'];
-            unset($params['username']);
             $url = urlencode(strtolower($userName)) . "/" . $route . "/" . $params['id'];
-            unset($params['id']);
-            $url = rtrim($url . '/' . $manager->createPathInfo($params, '/', '/'), '/');
             return $url;
         } elseif (isset($params['username']) && substr($route, 0, 5) == "album") {
             $userName = $params['username'];
-            unset($params['username']);
             $url = urlencode(strtolower($userName)) . "/" . $route;
-            $url = rtrim($url . '/' . $manager->createPathInfo($params, '/', '/'), '/');
             return $url;
         }
 

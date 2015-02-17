@@ -29,6 +29,10 @@ This module allows user to add albums with description and optional album cover.
 
 - Use at your own risk.
 
+### Known Issues
+ - As of now this module will work only on path format. so If you want to use this module make sure the urlManager's urlFormat will be set to path.
+ - To use this module goto protected/config/_defaults.php under urlManager configuration set urlFormat to path.
+
 ### Status
 
 Under Development.

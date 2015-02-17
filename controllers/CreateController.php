@@ -69,7 +69,7 @@ class CreateController extends ContentContainerController
 			$model->attributes=$_POST['Album'];
 			if ($model->save()) {
                                 PublicFile::attachPrecreated($model, Yii::app()->request->getParam('cover'));
-				$this->redirect(['/album/view','id'=>$model->id,'uguid'=>$user->guid]);
+				$this->redirect(['/album/view','id'=>$model->id,'username'=>$user->username]);
                         }
 		}
 
