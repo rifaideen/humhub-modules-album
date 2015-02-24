@@ -13,7 +13,7 @@ Yii::app()->moduleManager->register([
     ],
     'urlManagerRules' => [
         [
-            'class' => 'album.components.AlbumUrlRule'
+            'class' => 'application.modules.album.components.AlbumUrlRule'
         ]
     ]
 ]);
