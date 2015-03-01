@@ -150,8 +150,6 @@ class Album extends HActiveRecordContent
                     $activity->save();
                     $activity->fire();
                 }
-
-                return true;
         }
         
         /**

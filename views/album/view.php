@@ -3,7 +3,6 @@
 /* @var $model Album */
 ?>
 <?php
-$am = Yii::app()->assetManager;
 $assets = $this->module->assetsUrl;
 $cs = Yii::app()->clientScript;
 $cs->registerCssFile("$assets/css/normalize.css");
