@@ -12,7 +12,7 @@ class CreateController extends ContentContainerController
 
         public $defaultAction = 'create';
         
-    /**
+        /**
 	 * @return array action filters
 	 */
 	public function filters()
@@ -69,7 +69,7 @@ class CreateController extends ContentContainerController
 			$model->attributes=$_POST['Album'];
 			if ($model->save()) {
                                 PublicFile::attachPrecreated($model, Yii::app()->request->getParam('cover'));
-				$this->redirect(['/album/view','id'=>$model->id,'username'=>$user->username]);
+				$this->redirect(['/album/view','id'=>$model->id,'username'=>$user->username,'uguid'=>$user->guid]);
                         }
 		}
 

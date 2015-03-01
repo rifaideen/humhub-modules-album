@@ -49,7 +49,7 @@ class AlbumModule extends HWebModule
         if ($user->isModuleEnabled('album')) {
             $event->sender->addItem(array(
                 'label' => 'Album',
-                'url' => Yii::app()->createUrl('//album', array('username' => $user->username)),
+                'url' => Yii::app()->createUrl('//album', array('username' => $user->username,'uguid' => $user->guid)),
                 'isActive' => Yii::app()->controller->module && Yii::app()->controller->module->id == 'album',
             ));
         }

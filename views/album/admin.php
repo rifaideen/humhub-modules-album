@@ -59,15 +59,15 @@ or <b>=</b>) at the beginning of each of your search values to specify how the c
         */
         [
             'class'=>'CButtonColumn',
-            'viewButtonUrl' => '["/album/view","id"=>$data->id,"username"=>Yii::app()->user->name]',
-            'updateButtonUrl' => '["/album/update","id"=>$data->id,"username"=>Yii::app()->user->name]',
-            'deleteButtonUrl' => '["/album/delete","id"=>$data->id,"username"=>Yii::app()->user->name]',
+            'viewButtonUrl' => '["/album/view","id"=>$data->id,"username"=>Yii::app()->user->name,"uguid"=>$data->owner->guid]',
+            'updateButtonUrl' => '["/album/update","id"=>$data->id,"username"=>Yii::app()->user->name,"uguid"=>$data->owner->guid]',
+            'deleteButtonUrl' => '["/album/delete","id"=>$data->id,"username"=>Yii::app()->user->name,"uguid"=>$data->owner->guid]',
             'template' => '{view} {update} {details} {delete}',
             'buttons' => [
                 'details' => [
                     'label' => 'Details',
                     'imageUrl' => $this->module->getAssetsUrl() .'/img/details.png',
-                    'url' => '["/album/details","id"=>$data->id,"username"=>Yii::app()->user->name]',
+                    'url' => '["/album/details","id"=>$data->id,"username"=>Yii::app()->user->name,"uguid"=>$data->owner->guid]',
                 ]
             ]
         ],

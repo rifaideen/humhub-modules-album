@@ -50,8 +50,7 @@ class IndexController extends ContentContainerController
                 $criteria = new CDbCriteria();
                 $criteria->condition = 't.created_by = :creater';
                 $criteria->params = [':creater' => $user->id];
-                $criteria->with = ['cover'];
-		$dataProvider=new CActiveDataProvider('Album',[
+                $dataProvider=new CActiveDataProvider('Album',[
         	'criteria' => $criteria,
                     'pagination' => [
                         'pageSize' => 10

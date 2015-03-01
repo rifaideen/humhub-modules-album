@@ -15,14 +15,32 @@ class AlbumUrlRule extends CBaseUrlRule
     public function createUrl($manager, $route, $params, $ampersand)
     {
 
+        $format = $manager->urlFormat;
         if (isset($params['username'],$params['id']) && substr($route, 0, 5) == "album") {
-            $userName = $params['username'];
-            $url = urlencode(strtolower($userName)) . "/" . $route . "/" . $params['id'];
-            return $url;
+            if ($format == 'path') {
+                $userName = $params['username'];
+                $url = urlencode(strtolower($userName)) . "/" . $route . "/" . $params['id'];
+                return $url;
+            } else {
+                unset($params['username']);
+                return count($params) > 0 ? 
+                '?' . $manager->routeVar . '=' . $route . $ampersand . $manager->createPathInfo($params, '=', $ampersand) 
+                    : 
+                '?' . $manager->routeVar . '=' . $route;
+            }
+            
         } elseif (isset($params['username']) && substr($route, 0, 5) == "album") {
-            $userName = $params['username'];
-            $url = urlencode(strtolower($userName)) . "/" . $route;
-            return $url;
+            if ($format == 'path') {
+                $userName = $params['username'];
+                $url = urlencode(strtolower($userName)) . "/" . $route;
+                return $url;
+            } else {
+                unset($params['username']);
+                return count($params) > 0 ? 
+                '?' . $manager->routeVar . '=' . $route . $ampersand . $manager->createPathInfo($params, '=', $ampersand)
+                    :
+                '?' . $manager->routeVar . '=' . $route;
+            }
         }
 
         return false;
