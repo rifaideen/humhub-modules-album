@@ -23,15 +23,10 @@ This module allows user to add albums with description and optional album cover.
 ### Minimal Requirements
 
 - php 5.4+
-- humhub v-0.10.1 with url's in path format.
 
 ### Disclaimer
 
 - Use at your own risk.
-
-### Known Issues
- - As of now this module will work only on path format. so If you want to use this module make sure the urlManager's urlFormat will be set to path.
- - To use this module goto protected/config/_defaults.php under urlManager configuration set urlFormat to path.
 
 ### Status
 
