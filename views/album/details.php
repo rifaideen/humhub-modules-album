@@ -26,6 +26,10 @@ $this->menu = [
       'url' => ['/album/update','id'=>$model->id,'username'=>$username,'uguid'=>$uguid]
     ],
     [
+      'label' => 'Update Album Cover',
+      'url' => ['/album/update/cover','id'=>$model->id,'username'=>$username,'uguid'=>$uguid]
+    ],
+    [
       'label' => 'List Album',
       'url' => ['/album/index','username'=>$username,'uguid'=>$uguid]
     ],

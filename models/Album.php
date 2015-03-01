@@ -17,7 +17,11 @@
  */
 class Album extends HActiveRecordContent
 {
-	
+	/**
+         * used to validate cover image when updating cover.
+         */
+        public $image;
+        
         private $_coverImage;
         
         /**
@@ -37,6 +41,7 @@ class Album extends HActiveRecordContent
 		// will receive user inputs.
 		return [
 			['name', 'required'],
+                        ['image', 'required', 'on'=>'update-cover'],
 			['name', 'length', 'max'=>255],
                         ['description', 'safe'],
 			// The following rule is used by search().

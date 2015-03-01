@@ -70,6 +70,34 @@ class UpdateController extends ContentContainerController
 	}
         
         /**
+         * Update Album Cover Image.
+         * @param int $id
+         * @throws CHttpException
+         */
+        public function actionCover($id)
+        {
+            $model = $this->loadModel($id);
+            $model->scenario = 'update-cover';
+            $user = $this->getUser();
+            if (!$model->canEdit()) {
+                throw new CHttpException(403,'You are not allowed to perform this action');
+            }
+            
+            if (isset($_POST['Album'])) {
+                $model->attributes = $_POST['Album'];
+                if ($model->validate('image')) {
+                    if ($model->cover instanceof PublicFile) {
+                        $model->cover->delete();
+                    }
+                    PublicFile::attachPrecreated($model, $model->image);
+                    $this->redirect(['/album/view','id'=>$model->id,'username'=>$user->username,'uguid'=>$user->guid]);
+                }
+            }
+            
+            $this->render('/album/cover',compact('model'));
+        }
+        
+        /**
 	 * Returns the data model based on the primary key given in the GET variable.
 	 * If the data model is not found, an HTTP exception will be raised.
 	 * @param integer $id the ID of the model to be loaded
