@@ -32,7 +32,7 @@ $cs->registerCssFile("$assets/css/component.css");
                             <div class="row album-content"></div>
                         </div>
                         <div class="modal-footer" style="display: none;">
-                            <?= $model->description != null ? $model->description. '|' : null ?> Created <?= HHtml::timeago($model->created_at); ?>
+                            created <?= HHtml::timeago($model->created_at); ?>
                         </div>
                     </div>
                 </div>
