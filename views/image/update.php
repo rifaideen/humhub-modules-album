@@ -41,6 +41,9 @@ $this->menu = [
 ];
 ?>
 
-<h1>Update AlbumImage <?php echo $model->id; ?></h1>
-
-<?php $this->renderPartial('_form', ['model'=>$model]); ?>
+<div class="panel panel-default">
+    <div class="panel-heading">Update Album <strong>Image</strong></div>
+    <div class="panel-body">
+        <?php $this->renderPartial('_form', ['model'=>$model]); ?>
+    </div>
+</div>

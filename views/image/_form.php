@@ -4,8 +4,6 @@
 /* @var $form CActiveForm */
 ?>
 
-<div class="form">
-
 <?php $form=$this->beginWidget('HActiveForm', [
 	'id'=>'album-image-form',
 	// Please note: When you enable ajax validation, make sure the corresponding
@@ -22,7 +20,7 @@
 
 	<?php echo $form->errorSummary($model); ?>
 
-	<div class="row">
+	<div class="form-group">
                 <label>Image</label><br/>
                 <?php 
                 if ($model->isNewRecord):
@@ -41,22 +39,20 @@
 		<?php echo $form->error($model,'_image'); ?>
 	</div>
 
-	<div class="row">
+	<div class="form-group">
 		<?php echo $form->labelEx($model,'name'); ?>
 		<?php echo $form->textField($model,'name',['class'=>'form-control','maxlength'=>100]); ?>
 		<?php echo $form->error($model,'name'); ?>
 	</div>
 
-	<div class="row">
+	<div class="form-group">
 		<?php echo $form->labelEx($model,'description'); ?>
 		<?php echo $form->textField($model,'description',['class'=>'form-control','maxlength'=>255]); ?>
 		<?php echo $form->error($model,'description'); ?>
 	</div>
 
-	<div class="row">
-		<?php echo CHtml::submitButton($model->isNewRecord ? 'Add to Album' : 'Update Image Details',['class'=>'btn btn-primary']); ?>
-	</div>
+        <hr>
+        
+	<?php echo CHtml::submitButton($model->isNewRecord ? 'Add to Album' : 'Update Image Details',['class'=>'btn btn-primary']); ?>
 
 <?php $this->endWidget(); ?>
-
-</div><!-- form -->

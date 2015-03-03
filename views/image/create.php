@@ -31,7 +31,9 @@ $this->menu = [
     ],
 ];
 ?>
-
-<h1>Create Album Image</h1>
-
-<?php $this->renderPartial('_form', ['model'=>$model]); ?>
+<div class="panel panel-default">
+    <div class="panel-heading">Add Album <strong>Image</strong></div>
+    <div class="panel-body">
+        <?php $this->renderPartial('_form', ['model'=>$model]); ?>
+    </div>
+</div>

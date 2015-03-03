@@ -3,6 +3,9 @@
 /* @var $model Album */
 ?>
 
-<h1>Update Album <?php echo $model->name; ?></h1>
-
-<?php $this->renderPartial('/album/_form', ['model'=>$model]); ?>
+<div class="panel panel-default">
+    <div class="panel-heading">Update Album - <strong><?php echo $model->name; ?></strong></div>
+    <div class="panel-body">
+        <?php $this->renderPartial('/album/_form', ['model'=>$model]); ?>
+    </div>
+</div>

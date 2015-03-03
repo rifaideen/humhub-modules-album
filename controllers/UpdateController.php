@@ -94,7 +94,7 @@ class UpdateController extends ContentContainerController
                 }
             }
             
-            $this->render('/album/cover',compact('model'));
+            $this->render('/album/cover',compact('model','user'));
         }
         
         /**

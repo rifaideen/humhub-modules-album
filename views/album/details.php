@@ -48,9 +48,11 @@ $this->menu = [
     <div class="panel-body">
         <div class="row">
             <div class="col-md-3">
-                <?php echo CHtml::link(CHtml::encode($model->name),['/album/view','id'=>$model->id,'username'=>$username,'uguid'=>$uguid]); ?>
+                <img class="img-thumbnail" src="<?php echo $model->coverImage; ?>">
             </div>
             <div class="col-md-9">
+                <?php echo CHtml::link(CHtml::encode($model->name),['/album/view','id'=>$model->id,'username'=>$username,'uguid'=>$uguid]); ?>
+                <hr>
                 <?php echo CHtml::encode($model->description); ?>
             </div>
         </div>
@@ -63,22 +65,35 @@ $this->menu = [
         $this->widget('zii.widgets.grid.CGridView', [
             'dataProvider' => $dataProvider,
             'itemsCssClass' => 'table table-striped',
+            'summaryText'=>'Displaying {start}-{end} of {count} images.',
             'htmlOptions' => [
                 'class' => 'grid',
             ],
             'columns' => [
-                'image.url:image:Image',
+                [
+                    'type' => 'raw',
+                    'value' => 'CHtml::image($data->image->url,"loading",array("class"=>"img-thumbnail"))',
+                ],
+//                'image.url:image:Image',
                 'name',
                 'description',
                 [
                     'class' => 'CButtonColumn',
-                    //'viewButtonUrl' => '["image/view","id"=>$data->id]',
                     'updateButtonUrl' => '["image/update","id"=>$data->id]',
                     'deleteButtonUrl' => '["image/delete","id"=>$data->id]',
+                    'updateButtonLabel' => '<i class="fa fa-pencil"></i>',
+                    'updateButtonOptions' => [
+                        'title' => 'Update'
+                    ],
+                    'deleteButtonLabel' => '<i class="fa fa-trash"></i>',
+                    'deleteButtonOptions' => [
+                        'title' => 'Delete'
+                    ],
+                    'updateButtonImageUrl' => false,
+                    'deleteButtonImageUrl' => false,
                     'template' => '{update} {delete}'
                 ]
             ]
         ]);
         ?>  
     </div>
-</div>

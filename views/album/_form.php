@@ -19,20 +19,20 @@
 
 	<?php echo $form->errorSummary($model,null,null,['class'=>'errorMessage']); ?>
 
-	<div class="row">
+	<div class="form-group">
 		<?php echo $form->labelEx($model,'name'); ?>
 		<?php echo $form->textField($model,'name',['maxlength'=>255,'class'=>'form-control']); ?>
 		<?php echo $form->error($model,'name'); ?>
 	</div>
 
-	<div class="row">
+	<div class="form-group">
 		<?php echo $form->labelEx($model,'description'); ?>
 		<?php echo $form->textArea($model,'description',['rows'=>6, 'cols'=>50,'class'=>'form-control']); ?>
 		<?php echo $form->error($model,'description'); ?>
 	</div>
 
         <?php if ($model->isNewRecord): ?>
-        <div class="row">
+        <div class="form-group">
                 <label>Album Cover</label><br/>
                 <?php 
                     $this->widget('application.modules.album.widgets.ImageUploadButtonWidget',[
@@ -49,9 +49,9 @@
         </div>
         <?php endif; ?>
         
-	<div class="row">
-		<?php echo CHtml::submitButton('Create Album',['class'=>'btn btn-primary']); ?>
-	</div>
+        <hr>
+	
+	<?php echo CHtml::submitButton($model->isNewRecord ? 'Create' : 'Update',['class'=>'btn btn-primary']); ?>
 
 <?php $this->endWidget(); ?>
 
