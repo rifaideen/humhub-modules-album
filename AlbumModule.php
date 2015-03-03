@@ -97,4 +97,16 @@ class AlbumModule extends HWebModule
 
         return false;
     }
+    
+    /**
+     * delete all albums created by the given user.
+     * @param User $user
+     */
+    public function disableUserModule(User $user)
+    {
+        $albums = Album::model()->findAll('created_by = :user', array(':user'=>$user->id));
+        foreach ($albums as $album) {
+            $album->delete();
+        }
+    }
 }
