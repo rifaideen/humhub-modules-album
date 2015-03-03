@@ -2,7 +2,7 @@
 /**
  * Handles Album Update operation.
  *
- * @author rifaideen
+ * @author rifaideen <rifajas@gmail.com>
  */
 class UpdateController extends ContentContainerController
 {

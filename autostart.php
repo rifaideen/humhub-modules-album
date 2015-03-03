@@ -10,6 +10,7 @@ Yii::app()->moduleManager->register([
     // Events to Catch 
     'events' => [
         ['class' => 'ProfileMenuWidget', 'event' => 'onInit', 'callback' => ['AlbumModule', 'onProfileMenuInit']],
+        ['class' => 'AdminMenuWidget', 'event' => 'onInit', 'callback' => ['AlbumModule', 'onAdminMenuInit']],
     ],
     'urlManagerRules' => [
         [

@@ -2,7 +2,7 @@
 /**
  * Handles Album Image related operations as well as file upload operations.
  *
- * @author rifaideen
+ * @author rifaideen <rifajas@gmail.com>
  */
 class ImageController extends Controller
 {

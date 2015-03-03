@@ -53,4 +53,23 @@ class PublicFile extends File
     {
         return parent::model($className);
     }
+    
+    /**
+     * Validate the file extensions.
+     */
+    public function validateExtension($attribute, $params)
+    {
+        $allowedExtensions = HSetting::get('allowedExtensions','album');
+
+        if ($allowedExtensions != "") {
+            $extension = $this->getExtension();
+            $extension = trim(strtolower($extension));
+
+            $allowed = array_map('trim', explode(",", $allowedExtensions));
+
+            if (!in_array($extension, $allowed)) {
+                $this->addError($attribute, 'This file type is not allowed!');
+            }
+        }
+    }
 }

@@ -63,7 +63,10 @@
 	height: 240px;
 	background: #f9f9f9;
 }
-
+.photostack-title {
+    font-family: "Give You Glory", cursive;
+    color: #a7a0a2;
+}
 .photostack-back {
 	display: none;
 	position: absolute;

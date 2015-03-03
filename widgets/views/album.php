@@ -13,9 +13,9 @@ $cs->registerCssFile("$assets/css/component.css");
         <?php $this->beginContent('application.modules_core.wall.views.wallLayout', array('object' => $model)); ?>
             <a data-toggle="modal" data-target="#album-modal-<?= $id ?>">
                 <img src="<?= $model->coverImage ?>" class="img-responsive">
-                <h4>
-                    <?= $model->name ?>
-                </h4>
+            </a>
+            <a href="<?php echo $this->createUrl('/album/view',array('id'=>$model->id,'username'=>$model->content->user->username,'uguid'=>$model->content->user->guid)); ?>">
+                <h4><?= $model->name ?></h4>
             </a>
         <p>
             <?= $model->description ?>

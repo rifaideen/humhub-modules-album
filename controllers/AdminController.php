@@ -2,7 +2,7 @@
 /**
  * Displays Albums in a Gridview.
  *
- * @author rifaideen
+ * @author rifaideen <rifajas@gmail.com>
  */
 class AdminController extends ContentContainerController
 {

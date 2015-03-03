@@ -2,7 +2,7 @@
 /**
  * View Album In a nice layout with album details as first slide.
  *
- * @author rifaideen
+ * @author rifaideen <rifajas@gmail.com>
  */
 class ViewController extends ContentContainerController
 {

@@ -2,7 +2,7 @@
 /**
  * Handles Album Delete operations.
  *
- * @author rifaideen
+ * @author rifaideen <rifajas@gmail.com>
  */
 class DeleteController extends Controller
 {

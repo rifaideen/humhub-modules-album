@@ -2,7 +2,7 @@
 /**
  * Handles Album creation.
  *
- * @author rifaideen
+ * @author rifaideen <rifajas@gmail.com>
  */
 class CreateController extends ContentContainerController
 {

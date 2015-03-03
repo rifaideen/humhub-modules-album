@@ -2,7 +2,7 @@
 /**
  * List Albums with name and description.
  *
- * @author rifaideen
+ * @author rifaideen <rifajas@gmail.com>
  */
 class IndexController extends ContentContainerController
 {

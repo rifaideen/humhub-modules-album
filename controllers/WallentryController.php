@@ -2,7 +2,7 @@
 /**
  * Render Album via ajax on Wall.
  *
- * @author rifaideen
+ * @author rifaideen <rifajas@gmail.com>
  */
 class WallentryController extends Controller
 {
