@@ -149,6 +149,10 @@ class Album extends HActiveRecordContent
                     $activity->module = "album";
                     $activity->save();
                     $activity->fire();
+                    /**
+                     * Fire the Notification to user followers.
+                     */
+                    AlbumNotification::fire($this);
                 }
         }
         
@@ -164,6 +168,10 @@ class Album extends HActiveRecordContent
                 foreach ($this->getImages() as $image) {
                     $image->delete();
                 }
+                /**
+                 * Remove notifications.
+                 */
+                Notification::remove('Album', $this->id);
 
                 return parent::beforeDelete();
         }

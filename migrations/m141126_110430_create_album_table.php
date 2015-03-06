@@ -25,12 +25,12 @@ class m141126_110430_create_album_table extends EDbMigration
                 'updated_at'=>'DATETIME NULL'
             ]);
             
-            //$this->addForeignKey($this->prefix.'fk_album', $this->prefix.'image', 'album_id', $this->prefix.'album', 'id','NO ACTION','NO ACTION');
+            $this->addForeignKey($this->prefix.'fk_album', $this->prefix.'image', 'album_id', $this->prefix.'album', 'id','CASCADE','CASCADE');
 	}
 
 	public function down()
 	{
-            //$this->dropForeignKey($this->prefix.'fk_album',$this->prefix.'image');
+            $this->dropForeignKey($this->prefix.'fk_album',$this->prefix.'image');
             $this->dropTable($this->prefix.'album');
             $this->dropTable($this->prefix.'image');
 	}

@@ -5,7 +5,8 @@ Yii::app()->moduleManager->register([
     'class' => 'application.modules.album.AlbumModule',
     'import' => [
         'application.modules.album.*',
-        'application.modules.album.models.*'
+        'application.modules.album.models.*',
+        'application.modules.album.notifications.AlbumNotification'
     ],
     // Events to Catch 
     'events' => [
